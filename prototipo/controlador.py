@@ -6,7 +6,7 @@ FPS = 60
 
 class Controlador:
     def __init__(self):
-        self._estado = Estado()
+        self._estado = Estado(500,200,1)
         self.__entidades = []
 
     def run(self):
