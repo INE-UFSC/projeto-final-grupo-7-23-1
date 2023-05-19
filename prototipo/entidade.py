@@ -14,3 +14,6 @@ class Entidade(ABC):
 
     def draw(self, surface):
         pygame.draw.rect(surface, "white", [self.__posicao.x, self.__posicao.y, self.__tamanho.x, self.__tamanho.y])
+
+    def set_velocidade(self, velocidade):
+        self.__velocidade = velocidade

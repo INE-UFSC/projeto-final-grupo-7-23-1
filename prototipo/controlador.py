@@ -34,6 +34,11 @@ class Controlador:
             if event.type == pygame.QUIT:
                 return False
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.__entidades[0].jump()
+
+
         for entity in self.__entidades:
             entity.update(self.__estado._gravidade, dt)
 
