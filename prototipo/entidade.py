@@ -11,6 +11,9 @@ class Entidade(ABC):
     def update(self, gravidade, dt):
         self.__velocidade.y += gravidade
         self.__posicao += self.__velocidade * dt
+        if self.__posicao.y < 0:
+            self.__posicao.y = 0
+            self.__velocidade.y = 0
 
     def draw(self, surface):
         pygame.draw.rect(surface, "white", [self.__posicao.x, self.__posicao.y, self.__tamanho.x, self.__tamanho.y])
