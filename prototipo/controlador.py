@@ -1,6 +1,7 @@
 import pygame
 
 from estado import Estado
+from entidade import Entidade
 
 FPS = 60
 
@@ -8,6 +9,9 @@ class Controlador:
     def __init__(self):
         self._estado = Estado(500,200,1)
         self.__entidades = []
+
+    def add_entity(self, entity: Entidade):
+        self.__entidades.append(entity)
 
     def run(self):
         pygame.init()
@@ -18,7 +22,7 @@ class Controlador:
         dt = 0
 
         while running:
-            self.__update(screen, dt);
+            self.__update(screen, dt)
             dt = clock.tick(FPS) / 1000
 
         pygame.quit()
@@ -29,6 +33,10 @@ class Controlador:
                 return False
 
         screen.fill("black")
+
+        for entity in self.__entidades:
+            entity.draw(screen)
+
         pygame.display.flip()
 
         return True

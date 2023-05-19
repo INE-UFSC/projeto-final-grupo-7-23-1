@@ -13,4 +13,4 @@ class Entidade(ABC):
         self.__posicao += self.__velocidade * dt
 
     def draw(self, surface):
-        pygame.draw.rect(surface, "white", [self.__posicao.x, self.__posicao.y, 30, 30])
+        pygame.draw.rect(surface, "white", [self.__posicao.x, self.__posicao.y, self.__tamanho.x, self.__tamanho.y])
