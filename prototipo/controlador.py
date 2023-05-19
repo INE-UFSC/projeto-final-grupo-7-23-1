@@ -4,10 +4,12 @@ from estado import Estado
 from entidade import Entidade
 
 FPS = 60
+GRAVIDADE = 30
+VELOCIDADE = 200
 
 class Controlador:
     def __init__(self):
-        self._estado = Estado(500,200,1)
+        self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
         self.__entidades = []
 
     def add_entity(self, entity: Entidade):
@@ -31,6 +33,9 @@ class Controlador:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
+
+        for entity in self.__entidades:
+            entity.update(self.__estado._gravidade, dt)
 
         screen.fill("black")
 
