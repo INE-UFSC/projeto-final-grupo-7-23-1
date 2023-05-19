@@ -3,9 +3,7 @@ import pygame
 from estado import Estado
 from entidade import Entidade
 
-FPS = 60
-GRAVIDADE = 30
-VELOCIDADE = 200
+from constantes import *
 
 class Controlador:
     def __init__(self):
@@ -17,7 +15,7 @@ class Controlador:
 
     def run(self):
         pygame.init()
-        screen = pygame.display.set_mode((1280, 720))
+        screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
 
         running = True
@@ -46,6 +44,8 @@ class Controlador:
 
         for entity in self.__entidades:
             entity.draw(screen)
+
+        pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
         pygame.display.flip()
 

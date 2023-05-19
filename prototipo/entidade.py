@@ -1,6 +1,8 @@
 import pygame
 from abc import ABC, abstractmethod
 
+from constantes import *
+
 class Entidade(ABC):
     def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2):
         self.__id = id
@@ -11,8 +13,8 @@ class Entidade(ABC):
     def update(self, gravidade, dt):
         self.__velocidade.y += gravidade
         self.__posicao += self.__velocidade * dt
-        if self.__posicao.y < 0:
-            self.__posicao.y = 0
+        if self.__posicao.y > TELA_HEIGHT-CHAO-self.__tamanho.y:
+            self.__posicao.y = TELA_HEIGHT-CHAO-self.__tamanho.y
             self.__velocidade.y = 0
 
     def draw(self, surface):
@@ -20,3 +22,8 @@ class Entidade(ABC):
 
     def set_velocidade(self, velocidade):
         self.__velocidade = velocidade
+    
+    def get_posicao(self):
+        return self.__posicao
+    def get_tamanho(self):
+        return self.__tamanho
