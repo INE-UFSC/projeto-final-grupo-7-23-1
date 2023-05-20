@@ -1,17 +1,23 @@
 import pygame
+import random
 
 from estado import Estado
 from entidade import Entidade
+
+from jogador import Jogador
+from obstaculo import Obstaculo
 
 from constantes import *
 
 class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__entidades = []
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100))
+        self.__obstaculos = []
+        self.__obstaculos_ativos = []
 
-    def add_entity(self, entity: Entidade):
-        self.__entidades.append(entity)
+    def add_obstaculo(self, obstaculo: Obstaculo):
+        self.__obstaculos.append(obstaculo)
 
     def run(self):
         pygame.init()
@@ -22,7 +28,7 @@ class Controlador:
         dt = 0
 
         while running:
-            self.__update(screen, dt)
+            running = self.__update(screen, dt)
             dt = clock.tick(FPS) / 1000
 
         pygame.quit()
@@ -33,17 +39,25 @@ class Controlador:
                 return False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    self.__entidades[0].jump()
-
-
-        for entity in self.__entidades:
-            entity.update(self.__estado._gravidade, dt)
+                if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+                    self.__jogador.jump()
 
         screen.fill("black")
 
-        for entity in self.__entidades:
-            entity.draw(screen)
+        self.__jogador.draw(screen)
+        self.__jogador.update(self.__estado._gravidade, dt)
+
+        if len(self.__obstaculos_ativos) == 0:
+            self.__obstaculos_ativos.append(random.choice(self.__obstaculos))
+
+        for obstaculo in self.__obstaculos_ativos:
+            obstaculo.draw(screen)
+            obstaculo.update(0, dt)
+            if obstaculo.checkOver():
+                obstaculo.set_posicao_x(1280)
+                self.__obstaculos_ativos.pop()
+            if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
+                screen.fill("red")  #temporario pq n tem funcao pra game over
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
