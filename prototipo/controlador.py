@@ -41,6 +41,12 @@ class Controlador:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
                     self.__jogador.jump()
+                if event.key == pygame.K_DOWN:
+                    self.__jogador.agachar()
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_DOWN:
+                    self.__jogador.levantar()
 
         screen.fill("black")
 
