@@ -39,10 +39,12 @@ class Controlador:
                 return False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
-                    self.__jogador.jump()
+                if event.key == pygame.K_ESCAPE:
+                    return False
                 if event.key == pygame.K_DOWN:
                     self.__jogador.agachar()
+                elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+                    self.__jogador.jump()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_DOWN:
