@@ -4,7 +4,7 @@ Coloque aqui as principais telas do jogo, como tela de início e fim de jogo, jo
 
 Mecanismos de entrada pelos usuários: na tela de menu inicial o jogador pode clicar no botão iniciar para começãr o jogo, no botao sair para sair do jogo, e nas setas no centro da tela para selecionar o personagem
 
-Na tela de jogabilidade principal o jogador podera usar as setas para cima e para baixo para se locomover, apertar o botao esc para pausar, ou clicar no botao de pausa
+Na tela de jogabilidade principal o jogador podera usar as setas para cima e para baixo para se locomover, apertar o botao esc para pausar
 
 Na tela de pausa o jogador podera clicar nos botoes para voltar ao jogo ou para sair da tentativa atual, voltando ao menu inicial
 
