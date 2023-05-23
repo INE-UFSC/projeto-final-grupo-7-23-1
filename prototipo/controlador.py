@@ -63,7 +63,8 @@ class Controlador:
                 obstaculo.set_posicao_x(1280)
                 self.__obstaculos_ativos.pop()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
-                screen.fill("red")  #temporario pq n tem funcao pra game over
+                obstaculo.set_posicao_x(1280)
+                self.__obstaculos_ativos.pop()
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
