@@ -16,6 +16,11 @@ class Jogador(Entidade):
         self.set_height(self.__altura_inicial/2)
         self.set_posicao_y(self.get_posicao().y + self.__altura_inicial/2)
 
+    def pular_pra_baixo(self):
+        if self.get_posicao().y < TELA_HEIGHT-CHAO-self.get_tamanho().y:
+            self.set_velocidade(Vector2(0, -JUMP_FORCE))
+
     def levantar(self):
-        self.set_height(self.__altura_inicial)
-        self.set_posicao_y(self.get_posicao().y - self.__altura_inicial/2)
+        if self.get_tamanho().y < self.__altura_inicial:
+            self.set_height(self.__altura_inicial)
+            self.set_posicao_y(self.get_posicao().y - self.__altura_inicial/2)
