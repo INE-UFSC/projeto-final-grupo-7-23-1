@@ -34,6 +34,12 @@ class Controlador:
         pygame.quit()
 
     def __update(self, screen: pygame.Surface, dt: float) -> bool:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+            self.__jogador.jump()
+        elif keys[pygame.K_DOWN]:
+            self.__jogador.pular_pra_baixo()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
@@ -45,7 +51,7 @@ class Controlador:
                     self.__jogador.agachar()
                 elif event.key == pygame.K_DOWN:
                     self.__jogador.pular_pra_baixo()
-                elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+                elif (event.key == pygame.K_SPACE or event.key == pygame.K_UP):
                     self.__jogador.jump()
 
             if event.type == pygame.KEYUP:
