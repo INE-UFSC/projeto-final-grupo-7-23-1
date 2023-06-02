@@ -80,6 +80,7 @@ class Controlador:
                     screen.fill("red")
                 elif isinstance(obstaculo,Efeito):
                     obstaculo.set_posicao_x(1280)
+                    self.__estado = obstaculo.efeito(self.__estado)
                     self.__obstaculos_ativos.pop()
                     screen.fill("blue")
 

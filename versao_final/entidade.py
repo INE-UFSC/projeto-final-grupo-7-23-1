@@ -20,6 +20,9 @@ class Entidade(ABC):
         if self.__rect.y > TELA_HEIGHT-CHAO-self.__rect.height:
             self.__rect.y = TELA_HEIGHT-CHAO-self.__rect.height
             self.__velocidade.y = 0
+        if self.__rect.y < 0:
+            self.__rect.y = 0
+            self.__velocidade.y = 0
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.__cor, self.__rect)

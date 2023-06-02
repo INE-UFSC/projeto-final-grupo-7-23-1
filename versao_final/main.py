@@ -3,7 +3,7 @@ from pygame import Vector2
 from controlador import Controlador
 from jogador import Jogador
 from obstaculo import Obstaculo
-from efeito import Efeito
+from efeito_gravidade import EfeitoGravidade
 
 # obstaculos terrestres
 t_fino_baixo = Obstaculo(1, Vector2(1280, 516), Vector2(45, 60),"red")
@@ -16,7 +16,7 @@ a_voo_baixo = Obstaculo(5, Vector2(1280, 476), Vector2(35, 40),"white")
 a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),"white")
 
 #caixas efeitos
-efeito_1 = Efeito(7, Vector2(1280, 400),Vector2(40,40),"blue")
+efeito_1 = EfeitoGravidade(7, Vector2(1280, 400),Vector2(40,40),"blue")
 
 
 if __name__ == '__main__':
