@@ -74,9 +74,14 @@ class Controlador:
                 obstaculo.set_posicao_x(1280)
                 self.__obstaculos_ativos.pop()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
-                obstaculo.set_posicao_x(1280)
-                self.__obstaculos_ativos.pop()
-                screen.fill("red")
+                if isinstance(obstaculo, Obstaculo):
+                    obstaculo.set_posicao_x(1280)
+                    self.__obstaculos_ativos.pop()
+                    screen.fill("red")
+                elif isinstance(obstaculo,Efeito):
+                    obstaculo.set_posicao_x(1280)
+                    self.__obstaculos_ativos.pop()
+                    screen.fill("blue")
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
