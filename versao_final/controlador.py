@@ -39,7 +39,7 @@ class Controlador:
         if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
             self.__jogador.jump()
         elif keys[pygame.K_DOWN]:
-            self.__jogador.pular_pra_baixo()
+            self.__jogador.pular_pra_baixo(self.__estado._gravidade)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,10 +48,10 @@ class Controlador:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return False
-                elif event.key == pygame.K_DOWN and self.__jogador.get_posicao().y >= TELA_HEIGHT-CHAO-self.__jogador.get_tamanho().y:
+                elif event.key == pygame.K_DOWN:
                     self.__jogador.agachar()
                 elif event.key == pygame.K_DOWN:
-                    self.__jogador.pular_pra_baixo()
+                    self.__jogador.pular_pra_baixo(self.__estado._gravidade)
                 elif (event.key == pygame.K_SPACE or event.key == pygame.K_UP):
                     self.__jogador.jump()
 
