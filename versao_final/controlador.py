@@ -13,7 +13,7 @@ from constantes import *
 class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100),"white")
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
         self.__obstaculos = []
         self.__obstaculos_ativos = []
 
@@ -22,6 +22,7 @@ class Controlador:
 
     def run(self):
         pygame.init()
+        pygame.font.init()
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
 
@@ -71,20 +72,25 @@ class Controlador:
             obstaculo.draw(screen)
             obstaculo.update(0, dt)
             if obstaculo.checkOver():
-                obstaculo.set_posicao_x(1280)
+                obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
                 if isinstance(obstaculo, Obstaculo):
-                    obstaculo.set_posicao_x(1280)
+                    obstaculo.set_posicao_x(TELA_WIDTH)
                     self.__obstaculos_ativos.pop()
                     screen.fill("red")
                 elif isinstance(obstaculo,Efeito):
-                    obstaculo.set_posicao_x(1280)
+                    obstaculo.set_posicao_x(TELA_WIDTH)
                     self.__estado = obstaculo.efeito(self.__estado)
                     self.__obstaculos_ativos.pop()
                     screen.fill("blue")
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
+
+        font = pygame.font.Font(None, 30)
+        self.__estado.gerar_pontuacao()
+        score_text = font.render(f"Pontuação: {int(self.__estado._pontuacao)}", True, "yellow")
+        screen.blit(score_text, (TELA_WIDTH-TELA_WIDTH/7, 10))
 
         pygame.display.flip()
 
