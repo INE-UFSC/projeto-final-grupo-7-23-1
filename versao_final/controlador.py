@@ -6,17 +6,18 @@ from entidade import Entidade
 
 from jogador import Jogador
 from obstaculo import Obstaculo
+from efeito import Efeito
 
 from constantes import *
 
 class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100))
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100),"white")
         self.__obstaculos = []
         self.__obstaculos_ativos = []
 
-    def add_obstaculo(self, obstaculo: Obstaculo):
+    def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
 
     def run(self):

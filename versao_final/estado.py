@@ -8,3 +8,4 @@ class Estado:
         self.__pontuacao = pontuacao
     def gerar_pontuacao(self):
         self.__pontuacao = pygame.time.get_ticks()/100
+        pygame.KSCAN_SPACE  

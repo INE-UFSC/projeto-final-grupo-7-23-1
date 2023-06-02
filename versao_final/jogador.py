@@ -4,8 +4,8 @@ from entidade import *
 from constantes import *
 
 class Jogador(Entidade):
-    def __init__(self, id, posicao, tamanho):
-        super().__init__(id, posicao, tamanho)
+    def __init__(self, id, posicao, tamanho,cor):
+        super().__init__(id, posicao, tamanho, cor)
         self.__altura_inicial = tamanho.y
 
     def jump(self):
