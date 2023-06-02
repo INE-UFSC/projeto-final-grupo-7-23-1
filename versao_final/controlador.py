@@ -19,9 +19,14 @@ class Controlador:
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
+        self.__efeitos = []
+        self.__efeitos_ativos = []
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
+    
+    def add_efeito(self, efeito):
+        self.__efeitos.append(efeito)
 
     def run(self):
         pygame.init()
@@ -81,18 +86,35 @@ class Controlador:
                 obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
-                if isinstance(obstaculo, Obstaculo):
-                    obstaculo.set_posicao_x(TELA_WIDTH)
-                    self.__obstaculos_ativos.pop()
-                    screen.fill("red")
-                elif isinstance(obstaculo,Efeito):
-                    self.__estado_inical = copy.deepcopy(self.__estado)
-                    obstaculo.set_posicao_x(TELA_WIDTH)
-                    self.__tempo_efeito = pygame.time.get_ticks()
-                    print(self.__tempo_efeito)
-                    self.__estado = obstaculo.efeito(self.__estado)
-                    self.__obstaculos_ativos.pop()
-                    screen.fill("blue")
+
+                obstaculo.set_posicao_x(TELA_WIDTH)
+                self.__obstaculos_ativos.pop()
+                screen.fill("red")
+        
+        if len(self.__efeitos_ativos) == 0:
+            self.__efeitos_ativos.append(random.choice(self.__efeitos))
+
+        for efeito in self.__efeitos_ativos:
+            efeito.draw(screen)
+            efeito.update(0, dt)
+            random_x = random.randint(TELA_WIDTH*3, TELA_WIDTH*8)
+            random_y = int(random.choice([TELA_HEIGHT-CHAO-efeito.get_tamanho().y,
+                                      TELA_HEIGHT-CHAO-efeito.get_tamanho().y*1.5,
+                                      TELA_HEIGHT-CHAO-efeito.get_tamanho().y*2,
+                                      TELA_HEIGHT-CHAO-efeito.get_tamanho().y*2.5,
+                                      TELA_HEIGHT-CHAO-efeito.get_tamanho().y*3]))
+            if efeito.checkOver():
+                efeito.set_posicao_x(random_x)
+                efeito.set_posicao_y(random_y)
+                self.__efeitos_ativos.pop()
+            if self.__jogador.get_rect().colliderect(efeito.get_rect()):
+                self.__estado_inical = copy.deepcopy(self.__estado)
+                efeito.set_posicao_x(random_x)
+                efeito.set_posicao_y(random_y)
+                self.__tempo_efeito = pygame.time.get_ticks()
+                self.__estado = efeito.efeito(self.__estado)
+                self.__efeitos_ativos.pop()
+                screen.fill("blue")
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 

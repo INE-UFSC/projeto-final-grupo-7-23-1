@@ -3,8 +3,11 @@ from pygame import Vector2
 from controlador import Controlador
 from jogador import Jogador
 from obstaculo import Obstaculo
+
 from efeito_gravidade_invertida import EfeitoGravidadeInvertida
 from efeito_gravidade_baixa import EfeitoGravidadeBaixa
+
+from constantes import *
 
 # obstaculos terrestres
 t_fino_baixo = Obstaculo(1, Vector2(1280, 516), Vector2(45, 60),"red")
@@ -29,6 +32,8 @@ if __name__ == '__main__':
     controlador.add_obstaculo(t_largo_alto)
     controlador.add_obstaculo(a_voo_baixo)
     controlador.add_obstaculo(a_voo_alto)
-    controlador.add_obstaculo(efeito_1)
-    controlador.add_obstaculo(efeito_2)
+
+    controlador.add_efeito(efeito_1)
+    controlador.add_efeito(efeito_2)
+
     controlador.run()
