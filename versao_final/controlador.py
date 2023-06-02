@@ -1,5 +1,6 @@
 import pygame
 import random
+import copy
 
 from estado import Estado
 from entidade import Entidade
@@ -13,9 +14,11 @@ from constantes import *
 class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
+        self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1)
         self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
         self.__obstaculos = []
         self.__obstaculos_ativos = []
+        self.__tempo_efeito = 0
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
@@ -68,6 +71,9 @@ class Controlador:
         if len(self.__obstaculos_ativos) == 0:
             self.__obstaculos_ativos.append(random.choice(self.__obstaculos))
 
+        if pygame.time.get_ticks() - self.__tempo_efeito >= 5000:
+            self.__estado = copy.deepcopy(self.__estado_inical)
+
         for obstaculo in self.__obstaculos_ativos:
             obstaculo.draw(screen)
             obstaculo.update(0, dt)
@@ -80,7 +86,10 @@ class Controlador:
                     self.__obstaculos_ativos.pop()
                     screen.fill("red")
                 elif isinstance(obstaculo,Efeito):
+                    self.__estado_inical = copy.deepcopy(self.__estado)
                     obstaculo.set_posicao_x(TELA_WIDTH)
+                    self.__tempo_efeito = pygame.time.get_ticks()
+                    print(self.__tempo_efeito)
                     self.__estado = obstaculo.efeito(self.__estado)
                     self.__obstaculos_ativos.pop()
                     screen.fill("blue")
