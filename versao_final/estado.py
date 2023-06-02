@@ -5,7 +5,7 @@ class Estado:
         self._gravidade = gravidade
         self._velocidade = velocidade
         self._mapa = mapa
-        self.__pontuacao = pontuacao
+        self._pontuacao = pontuacao
     def gerar_pontuacao(self):
-        self.__pontuacao = pygame.time.get_ticks()/100
+        self._pontuacao = pygame.time.get_ticks()/100
         pygame.KSCAN_SPACE  
