@@ -33,17 +33,18 @@ class Controlador:
         pygame.font.init()
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
+        font = pygame.font.Font(None, 30)
 
         running = True
         dt = 0
 
         while running:
-            running = self.__update(screen, dt)
+            running = self.__update(screen, dt, font)
             dt = clock.tick(FPS) / 1000
 
         pygame.quit()
 
-    def __update(self, screen: pygame.Surface, dt: float) -> bool:
+    def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font) -> bool:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
             self.__jogador.jump()
@@ -118,7 +119,6 @@ class Controlador:
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
-        font = pygame.font.Font(None, 30)
         self.__estado.gerar_pontuacao()
         score_text = font.render(f"Pontuação: {int(self.__estado._pontuacao)}", True, "yellow")
         screen.blit(score_text, (TELA_WIDTH-TELA_WIDTH/7, 10))
