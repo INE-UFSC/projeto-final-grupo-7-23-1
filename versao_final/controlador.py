@@ -43,6 +43,22 @@ class Controlador:
             dt = clock.tick(FPS) / 1000
 
         pygame.quit()
+        
+    def show_go_screen(self):
+            font = pygame.font.Font(None, 30)
+            screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
+            text_surface = font.render("Press space bar to play again", True, "white")
+            screen.blit(text_surface, (TELA_WIDTH / 2, TELA_HEIGHT * 7 / 8))
+            pygame.display.flip()
+            done = False
+            while not done:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
+                        done = True
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            done = True
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font) -> bool:
         keys = pygame.key.get_pressed()
@@ -91,6 +107,7 @@ class Controlador:
                 obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
                 screen.fill("red")
+                self.show_go_screen()
         
         if len(self.__efeitos_ativos) == 0:
             self.__efeitos_ativos.append(random.choice(self.__efeitos))
