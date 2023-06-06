@@ -37,14 +37,18 @@ class Controlador:
 
         running = True
         dt = 0
+        game_speed = 0
 
         while running:
-            running = self.__update(screen, dt, font)
+            running = self.__update(screen, dt, font, game_speed)
             dt = clock.tick(FPS) / 1000
+            if game_speed < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
+                game_speed += ACELERACAO
+                print(game_speed)
 
         pygame.quit()
 
-    def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font) -> bool:
+    def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
             self.__jogador.jump()
@@ -82,7 +86,7 @@ class Controlador:
 
         for obstaculo in self.__obstaculos_ativos:
             obstaculo.draw(screen)
-            obstaculo.update(0, dt)
+            obstaculo.update(0, dt, game_speed)
             if obstaculo.checkOver():
                 obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
@@ -97,7 +101,7 @@ class Controlador:
 
         for efeito in self.__efeitos_ativos:
             efeito.draw(screen)
-            efeito.update(0, dt)
+            efeito.update(0, dt, game_speed)
             random_x = random.randint(TELA_WIDTH*3, TELA_WIDTH*8)
             random_y = int(random.choice([TELA_HEIGHT-CHAO-efeito.get_tamanho().y,
                                       TELA_HEIGHT-CHAO-efeito.get_tamanho().y*1.5,

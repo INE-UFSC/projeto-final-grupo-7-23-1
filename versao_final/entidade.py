@@ -13,9 +13,9 @@ class Entidade(ABC):
     def get_cor(self):
         return self.__cor
 
-    def update(self, gravidade, dt):
+    def update(self, gravidade, dt, game_speed = 0):
         self.__velocidade.y += gravidade
-        self.__rect.x += self.__velocidade.x * dt
+        self.__rect.x += (self.__velocidade.x * dt) - game_speed
         self.__rect.y += self.__velocidade.y * dt
         if self.__rect.y > TELA_HEIGHT-CHAO-self.__rect.height:
             self.__rect.y = TELA_HEIGHT-CHAO-self.__rect.height
