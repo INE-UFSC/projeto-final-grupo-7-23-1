@@ -4,12 +4,12 @@ from abc import ABC, abstractmethod
 from constantes import *
 
 class Entidade(ABC):
-    def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str, imagem = None):
+    def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str, imagem):
         self.__id = id
         self.__velocidade = pygame.Vector2(0, 0)
         self.__rect = pygame.Rect(posicao.x, posicao.y, tamanho.x, tamanho.y)
         self.__cor = cor
-        self.__imagem = imagem
+        self.__imagem = pygame.transform.scale(imagem,(tamanho.x,tamanho.y))
     
     def get_cor(self):
         return self.__cor

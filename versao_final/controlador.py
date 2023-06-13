@@ -15,7 +15,7 @@ class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
         self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -65,7 +65,7 @@ class Controlador:
                                 done = True
                                 self.run()
                                 self.__estado = self.__estado_inical
-                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
+                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
@@ -117,7 +117,7 @@ class Controlador:
                 return False
                 
         
-        if len(self.__efeitos_ativos) == 0:
+        if len(self.__efeitos_ativos) == 0 and len(self.__efeitos) >0:
             self.__efeitos_ativos.append(random.choice(self.__efeitos))
 
         for efeito in self.__efeitos_ativos:
