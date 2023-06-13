@@ -19,6 +19,7 @@ class Controlador:
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
+        self.__tempo_pontuação = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
 
@@ -34,35 +35,36 @@ class Controlador:
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
         font = pygame.font.Font(None, 30)
-
+        sair= False
         running = True
         dt = 0
-        game_speed = 0
+        speed_mul = 1
 
         while running:
-            running = self.__update(screen, dt, font, game_speed)
+            running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
             dt = clock.tick(FPS) / 1000
-            if game_speed < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
-                game_speed += ACELERACAO
-                print(game_speed)
-
-        pygame.quit()
+            if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
+                speed_mul += ACELERACAO
+        self.show_go_screen()
         
     def show_go_screen(self):
             font = pygame.font.Font(None, 30)
             screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
-            text_surface = font.render("Press space bar to play again", True, "white")
+            text_surface = font.render("Pressione qualquer botão para jogar novamente", True, "white")
             screen.blit(text_surface, (TELA_WIDTH / 2, TELA_HEIGHT * 7 / 8))
             pygame.display.flip()
+            self.__tempo_pontuação = pygame.time.get_ticks()
             done = False
             while not done:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        self.running = False
                         done = True
+                        return False
                     if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_SPACE:
                             done = True
+                            self.run()
+                            self.__estado = self.__estado_inical
+                            self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
@@ -94,7 +96,7 @@ class Controlador:
         self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 
-        if len(self.__obstaculos_ativos) == 0:
+        if len(self.__obstaculos_ativos) == 0 and len(self.__obstaculos) >0:
             self.__obstaculos_ativos.append(random.choice(self.__obstaculos))
 
         if pygame.time.get_ticks() - self.__tempo_efeito >= 5000:
@@ -111,7 +113,8 @@ class Controlador:
                 obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
                 screen.fill("red")
-                self.show_go_screen()
+                return False
+                
         
         if len(self.__efeitos_ativos) == 0:
             self.__efeitos_ativos.append(random.choice(self.__efeitos))
@@ -140,7 +143,7 @@ class Controlador:
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
-        self.__estado.gerar_pontuacao()
+        self.__estado.gerar_pontuacao(self.__tempo_pontuação)
         score_text = font.render(f"Pontuação: {int(self.__estado._pontuacao)}", True, "yellow")
         screen.blit(score_text, (TELA_WIDTH-TELA_WIDTH/7, 10))
 

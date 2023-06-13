@@ -6,6 +6,5 @@ class Estado:
         self._velocidade = velocidade
         self._mapa = mapa
         self._pontuacao = pontuacao
-    def gerar_pontuacao(self):
-        self._pontuacao = pygame.time.get_ticks()/100
-        pygame.KSCAN_SPACE  
+    def gerar_pontuacao(self, tempo_inicial):
+        self._pontuacao = (pygame.time.get_ticks()-tempo_inicial)/100

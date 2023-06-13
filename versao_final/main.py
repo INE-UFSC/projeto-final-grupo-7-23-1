@@ -6,6 +6,7 @@ from obstaculo import Obstaculo
 
 from efeito_gravidade_invertida import EfeitoGravidadeInvertida
 from efeito_gravidade_baixa import EfeitoGravidadeBaixa
+from efeito_diminuir_velocidade import EfeitoDiminuirVelocidade
 
 from constantes import *
 
@@ -22,6 +23,8 @@ a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),"white")
 #caixas efeitos
 efeito_1 = EfeitoGravidadeInvertida(7, Vector2(1280, 400),Vector2(40,40),"blue")
 efeito_2 = EfeitoGravidadeBaixa(7, Vector2(1280, 400),Vector2(40,40),"lightblue")
+efeito_3 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"purple")
+efeito_4 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"pink")
 
 
 if __name__ == '__main__':
@@ -35,5 +38,7 @@ if __name__ == '__main__':
 
     controlador.add_efeito(efeito_1)
     controlador.add_efeito(efeito_2)
+    controlador.add_efeito(efeito_3)
+    controlador.add_efeito(efeito_4)
 
     controlador.run()
