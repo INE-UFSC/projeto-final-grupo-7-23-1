@@ -2,8 +2,8 @@ import pygame
 from entidade import *
 
 class Obstaculo(Entidade):
-    def __init__(self, id, posicao, tamanho,cor):
-        super().__init__(id, posicao, tamanho,cor)
+    def __init__(self, id, posicao, tamanho,cor, imagem):
+        super().__init__(id, posicao, tamanho,cor,imagem)
         self.set_velocidade(pygame.Vector2(-300, 0))
     
     def checkOver(self):

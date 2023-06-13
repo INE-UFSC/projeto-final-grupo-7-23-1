@@ -4,11 +4,12 @@ from abc import ABC, abstractmethod
 from constantes import *
 
 class Entidade(ABC):
-    def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str):
+    def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str, imagem = None):
         self.__id = id
         self.__velocidade = pygame.Vector2(0, 0)
         self.__rect = pygame.Rect(posicao.x, posicao.y, tamanho.x, tamanho.y)
         self.__cor = cor
+        self.__imagem = imagem
     
     def get_cor(self):
         return self.__cor
@@ -26,6 +27,8 @@ class Entidade(ABC):
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.__cor, self.__rect)
+        if self.__imagem is not None:
+            surface.blit(self.__imagem, self.__rect)
 
     def set_velocidade(self, velocidade):
         self.__velocidade = velocidade

@@ -50,7 +50,7 @@ class Controlador:
     def show_go_screen(self):
             font = pygame.font.Font(None, 30)
             screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
-            text_surface = font.render("Pressione qualquer botão para jogar novamente", True, "white")
+            text_surface = font.render("Pressione espaço para jogar novamente", True, "white")
             screen.blit(text_surface, (TELA_WIDTH / 2, TELA_HEIGHT * 7 / 8))
             pygame.display.flip()
             self.__tempo_pontuação = pygame.time.get_ticks()
@@ -61,10 +61,11 @@ class Controlador:
                         done = True
                         return False
                     if event.type == pygame.KEYDOWN:
-                            done = True
-                            self.run()
-                            self.__estado = self.__estado_inical
-                            self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
+                            if event.key == pygame.K_SPACE:
+                                done = True
+                                self.run()
+                                self.__estado = self.__estado_inical
+                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white")
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
