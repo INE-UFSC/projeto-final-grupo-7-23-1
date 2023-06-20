@@ -15,7 +15,7 @@ class Controlador:
     def __init__(self):
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1,False)
         self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1,False)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("Assets/crocodilo.jpg"))
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -65,7 +65,7 @@ class Controlador:
                                 done = True
                                 self.run()
                                 self.__estado = copy.deepcopy(self.__estado_inical)
-                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
+                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
