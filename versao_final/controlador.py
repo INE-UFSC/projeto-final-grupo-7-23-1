@@ -13,9 +13,9 @@ from constantes import *
 
 class Controlador:
     def __init__(self):
-        self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
+        self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1,False)
+        self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1,False)
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("Assets/crocodilo.jpg"))
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -110,11 +110,11 @@ class Controlador:
                 obstaculo.set_posicao_x(TELA_WIDTH)
                 self.__obstaculos_ativos.pop()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
-
-                obstaculo.set_posicao_x(TELA_WIDTH)
-                self.__obstaculos_ativos.pop()
-                screen.fill("red")
-                return False
+                    obstaculo.set_posicao_x(TELA_WIDTH)
+                    self.__obstaculos_ativos.pop()
+                    if not self.__estado._invencibilidade :
+                        screen.fill("red")
+                        return False
                 
         
         if len(self.__efeitos_ativos) == 0 and len(self.__efeitos) >0:
