@@ -9,6 +9,9 @@ from jogador import Jogador
 from obstaculo import Obstaculo
 from efeito import Efeito
 
+from button import Button
+from menu_principal import MenuPrincipal
+
 from constantes import *
 
 class Controlador:
@@ -22,6 +25,7 @@ class Controlador:
         self.__tempo_pontuação = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
+        self.__menu_principal = MenuPrincipal(self)
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
@@ -39,6 +43,8 @@ class Controlador:
         running = True
         dt = 0
         speed_mul = 1
+
+        self.__menu_principal.update(screen)
 
         while running:
             running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
