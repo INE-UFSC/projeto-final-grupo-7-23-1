@@ -8,6 +8,7 @@ from entidade import Entidade
 from jogador import Jogador
 from obstaculo import Obstaculo
 from efeito import Efeito
+from background import Background
 
 from constantes import *
 
@@ -22,12 +23,17 @@ class Controlador:
         self.__tempo_pontuação = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
+        self.__background = []
+        self.__background_ativos = []
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
     
     def add_efeito(self, efeito):
         self.__efeitos.append(efeito)
+    
+    def add_background(self,background):
+        self.__background.append(background)
 
     def run(self):
         pygame.init()
@@ -93,7 +99,17 @@ class Controlador:
                     self.__jogador.levantar()
 
         screen.fill("black")
-
+        if 0<=len (self.__background_ativos) and len (self.__background_ativos) < 2:
+            self.__background_ativos.append(random.choice(self.__background))
+            print(len(self.__background_ativos))
+            if len(self.__background_ativos)==2:
+               self.__background_ativos[1].set_posicao_x(TELA_WIDTH*2)
+        for background in self.__background_ativos:
+            background.draw(screen)
+            background.update(0, dt, game_speed)
+            if background.checkOver():
+                background.set_posicao_x(TELA_WIDTH)
+                self.__background_ativos.pop(0)
         self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 

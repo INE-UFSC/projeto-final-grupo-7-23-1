@@ -11,6 +11,7 @@ from efeito_diminuir_velocidade import EfeitoDiminuirVelocidade
 from efeito_aumentar_velocidade import EfeitoAumentarVelocidade
 from efeito_invencibilidade import EfeitoInvencibilidade
 
+from background import Background
 from constantes import *
 
 # obstaculos terrestres
@@ -31,8 +32,16 @@ efeito_3 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"purple
 efeito_4 = EfeitoAumentarVelocidade(7, Vector2(1280, 400),Vector2(40,40),"pink",pygame.image.load(CAMINHO_ASSETS+"powerup.png"))
 efeito_5 = EfeitoInvencibilidade(7, Vector2(1280, 400),Vector2(40,40),"pink",pygame.image.load(CAMINHO_ASSETS+"powerup.png"))
 
+#backgrounds
+background1= Background(1,Vector2(TELA_WIDTH,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',pygame.image.load(CAMINHO_ASSETS+"amazonia1.jpg"))
+background2= Background(1,Vector2(TELA_WIDTH,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',pygame.image.load(CAMINHO_ASSETS+"amazonia2.jpg"))
+
+
 if __name__ == '__main__':
     controlador = Controlador()
+    controlador.add_background(background1)
+    controlador.add_background(background2)
+
     controlador.add_obstaculo(t_fino_baixo)
     controlador.add_obstaculo(t_fino_alto)
     controlador.add_obstaculo(t_largo_baixo)
@@ -45,5 +54,6 @@ if __name__ == '__main__':
     controlador.add_efeito(efeito_3)
     controlador.add_efeito(efeito_4)
     controlador.add_efeito(efeito_5)
+
 
     controlador.run()
