@@ -45,6 +45,7 @@ class Controlador:
             dt = clock.tick(FPS) / 1000
             if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
                 speed_mul += ACELERACAO
+        self.__estado.save_highscore()
         self.show_go_screen()
         
     def show_go_screen(self):
