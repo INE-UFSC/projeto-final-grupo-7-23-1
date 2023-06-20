@@ -8,3 +8,4 @@ JUMP_FORCE = -800
 ACELERACAO = 0.1
 MAX_SPEED = 20
 CAMINHO_ASSETS = 'Assets/'
+CAMINHO_SCORES = 'data/scores.txt'
