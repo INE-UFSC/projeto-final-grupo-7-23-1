@@ -10,6 +10,9 @@ from obstaculo import Obstaculo
 from efeito import Efeito
 from background import Background
 
+from button import Button
+from menu_principal import MenuPrincipal
+
 from constantes import *
 
 class Controlador:
@@ -25,6 +28,7 @@ class Controlador:
         self.__efeitos_ativos = []
         self.__background = []
         self.__background_ativos = []
+        self.__menu_principal = MenuPrincipal(self)
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
@@ -46,11 +50,14 @@ class Controlador:
         dt = 0
         speed_mul = 1
 
+        self.__menu_principal.update(screen)
+
         while running:
             running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
             dt = clock.tick(FPS) / 1000
             if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
                 speed_mul += ACELERACAO
+        self.__estado.save_highscore()
         self.show_go_screen()
         
     def show_go_screen(self):
