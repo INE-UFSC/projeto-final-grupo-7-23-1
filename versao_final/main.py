@@ -22,10 +22,10 @@ a_voo_baixo = Obstaculo(5, Vector2(1280, 476), Vector2(35, 40),"white",pygame.im
 a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),"white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
 
 #caixas efeitos
-efeito_1 = EfeitoGravidadeInvertida(7, Vector2(1280, 400),Vector2(40,40),"blue",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
-efeito_2 = EfeitoGravidadeBaixa(7, Vector2(1280, 400),Vector2(40,40),"lightblue",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
-efeito_3 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"purple",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
-efeito_4 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"pink",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
+efeito_1 = EfeitoGravidadeInvertida(7, Vector2(1280, 400),Vector2(40,40),"blue",pygame.image.load("versao_final/Assets/powerup.png"))
+efeito_2 = EfeitoGravidadeBaixa(7, Vector2(1280, 400),Vector2(40,40),"lightblue",pygame.image.load("versao_final/Assets/powerup.png"))
+efeito_3 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"purple",pygame.image.load("versao_final/Assets/powerup.png"))
+efeito_4 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"pink",pygame.image.load("versao_final/Assets/powerup.png"))
 
 
 if __name__ == '__main__':

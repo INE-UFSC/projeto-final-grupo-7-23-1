@@ -64,7 +64,7 @@ class Controlador:
                             if event.key == pygame.K_SPACE:
                                 done = True
                                 self.run()
-                                self.__estado = self.__estado_inical
+                                self.__estado = copy.deepcopy(self.__estado_inical)
                                 self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load("versao_final/Assets/crocodilo.jpg"))
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
@@ -134,7 +134,6 @@ class Controlador:
                 efeito.set_posicao_y(random_y)
                 self.__efeitos_ativos.pop()
             if self.__jogador.get_rect().colliderect(efeito.get_rect()):
-                self.__estado_inical = copy.deepcopy(self.__estado)
                 efeito.set_posicao_x(random_x)
                 efeito.set_posicao_y(random_y)
                 self.__tempo_efeito = pygame.time.get_ticks()
