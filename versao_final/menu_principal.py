@@ -31,7 +31,7 @@ class MenuPrincipal:
                     pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if botao_jogar.checkForInput(cursor):
-                        pass
+                        return True
                     if botao_opcoes.checkForInput(cursor):
                         pass
                     if botao_sair.checkForInput(cursor):

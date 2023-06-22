@@ -39,6 +39,13 @@ class Controlador:
     def add_background(self,background):
         self.__background.append(background)
 
+    def menu_inicial(self):
+        pygame.init()
+        pygame.font.init()
+        screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
+        if self.__menu_principal.update(screen):
+            self.run()
+
     def run(self):
         pygame.init()
         pygame.font.init()
@@ -50,7 +57,6 @@ class Controlador:
         dt = 0
         speed_mul = 1
 
-        self.__menu_principal.update(screen)
 
         while running:
             running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
@@ -110,13 +116,15 @@ class Controlador:
             self.__background_ativos.append(random.choice(self.__background))
             print(len(self.__background_ativos))
             if len(self.__background_ativos)==2:
-               self.__background_ativos[1].set_posicao_x(TELA_WIDTH*2)
+               self.__background_ativos[1].set_posicao_x(TELA_WIDTH)
         for background in self.__background_ativos:
+            print(background)
             background.draw(screen)
             background.update(0, dt, game_speed)
             if background.checkOver():
                 background.set_posicao_x(TELA_WIDTH)
                 self.__background_ativos.pop(0)
+                self.__background_ativos.append(random.choice(self.__background))
         self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 
