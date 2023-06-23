@@ -26,18 +26,5 @@ class Estado:
         try:
             with open(CAMINHO_SCORES,"r") as f:
                 return float(f.readline())
-        except FileNotFoundError:
+        except (FileNotFoundError, ValueError) as _:
             return 0.0
-
-    # def load_highscore_from_file(fn = "./high.txt"):
-    #     """Retrieve dict from file"""
-    #     hs = {}
-    #     try:
-    #         with open(fn,"r") as f:
-    #             for line in f:
-    #                 name,_,points = line.partition(":")
-    #                 if name and points:
-    #                     hs[name]=int(points)
-    #     except FileNotFoundError:
-    #         return {}
-    #     return hs
