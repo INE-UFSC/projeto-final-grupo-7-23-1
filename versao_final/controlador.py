@@ -9,6 +9,7 @@ from jogador import Jogador
 from obstaculo import Obstaculo
 from efeito import Efeito
 from background import Background
+from inicializador import inicializador
 
 from menus.controlador_menus import *
 
@@ -30,6 +31,7 @@ class Controlador:
         self.__background = []
         self.__background_ativos = []
         self.__controlador_menus = ControladorMenus()
+        inicializador(self, self.__estado._mapa)
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
@@ -48,7 +50,7 @@ class Controlador:
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
         font = pygame.font.Font(None, 30)
-        sair= False
+        mapa=1
         running = True
         dt = 0
         speed_mul = 1
@@ -59,6 +61,17 @@ class Controlador:
             dt = clock.tick(FPS) / 1000
             if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
                 speed_mul += ACELERACAO
+            testepont=int(self.__estado._pontuacao)
+            if testepont % 100 == 0:
+                if mapa <2:
+                    mapa+=1
+                self.__estado_inical._mapa = mapa
+                self.__estado._mapa = mapa
+                self.__obstaculos = []
+                self.__efeitos = []
+                self.__background = []
+                inicializador(self, self.__estado._mapa)
+                
         self.__estado.save_highscore()
         self.show_go_screen()
         
