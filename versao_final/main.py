@@ -56,4 +56,4 @@ if __name__ == '__main__':
     controlador.add_efeito(efeito_5)
 
 
-    controlador.menu_inicial()
+    controlador.menu_run()

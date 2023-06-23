@@ -10,13 +10,14 @@ from obstaculo import Obstaculo
 from efeito import Efeito
 from background import Background
 
-from button import Button
-from menu_principal import MenuPrincipal
+from menus.controlador_menus import *
 
 from constantes import *
 
 class Controlador:
     def __init__(self):
+        pygame.init()
+        pygame.font.init()
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1,False)
         self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1,False)
         self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
@@ -28,7 +29,7 @@ class Controlador:
         self.__efeitos_ativos = []
         self.__background = []
         self.__background_ativos = []
-        self.__menu_principal = MenuPrincipal(self)
+        self.__controlador_menus = ControladorMenus()
 
     def add_obstaculo(self, obstaculo):
         self.__obstaculos.append(obstaculo)
@@ -39,16 +40,11 @@ class Controlador:
     def add_background(self,background):
         self.__background.append(background)
 
-    def menu_inicial(self):
-        pygame.init()
-        pygame.font.init()
-        screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
-        if self.__menu_principal.update(screen):
-            self.run()
+    def menu_run(self):
+        self.__controlador_menus.menu_loop()
+        self.run()
 
     def run(self):
-        pygame.init()
-        pygame.font.init()
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
         font = pygame.font.Font(None, 30)
