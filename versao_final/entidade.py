@@ -45,3 +45,5 @@ class Entidade(ABC):
         return pygame.Vector2(self.__rect.width, self.__rect.height)
     def get_rect(self):
         return self.__rect
+    def get_imagem(self):
+        return self.__imagem
