@@ -1,6 +1,7 @@
 import pygame
 import random
 import copy
+import math
 
 from estado import Estado
 from entidade import Entidade
@@ -31,6 +32,7 @@ class Controlador:
         self.__background = []
         self.__background_ativos = []
         self.__controlador_menus = ControladorMenus()
+        ##self.__tiles = math.ceil(TELA_WIDTH / background.get_imagem().get_width()) + 1
         inicializador(self, self.__estado._mapa)
 
     def add_obstaculo(self, obstaculo):
@@ -126,12 +128,23 @@ class Controlador:
             print(len(self.__background_ativos))
             if len(self.__background_ativos)==2:
                self.__background_ativos[1].set_posicao_x(TELA_WIDTH)
-        for num in range(len(self.__background_ativos)):
-            self.__background_ativos[num].draw(screen)
-            self.__background_ativos[num].update(0, dt, game_speed)
-            if self.__background_ativos[num].checkOver():
-                self.__background_ativos[num].set_posicao_x(TELA_WIDTH)
-                self.__background_ativos.pop(num)
+            
+        for background in self.__background_ativos:
+            """scroll = 0
+            i = 0
+            while(i < self.__tiles):
+                screen.blit(background.get_imagem(), (background.get_imagem().get_width()*i
+                                + scroll, 0))
+                i += 1
+            # FRAME FOR SCROLLING
+            scroll -= 6
+            if abs(scroll) > background.get_imagem().get_width():
+                scroll = 0"""
+            background.draw(screen)
+            background.update(0, dt, game_speed)
+            if background.checkOver():
+                background.set_posicao_x(TELA_WIDTH)
+                self.__background_ativos.pop(0)
                 self.__background_ativos.append(random.choice(self.__background))
         self.__jogador.draw(screen)
         self.__jogador.get_imagem().convert_alpha()
