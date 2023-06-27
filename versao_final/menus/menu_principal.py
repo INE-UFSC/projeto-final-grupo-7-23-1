@@ -1,3 +1,4 @@
+import pygame_textinput
 from menus.menu import Menu
 from constantes import *
 
@@ -5,10 +6,15 @@ class MenuPrincipal(Menu):
     def __init__(self, controlador):
         super().__init__(controlador)
         self.__state = "Jogar"
-        self.__jogarx, self.__jogary = TELA_WIDTH / 2, TELA_HEIGHT - 340
-        self.__personagemx, self.__personagemy = TELA_WIDTH / 2, TELA_HEIGHT - 260
-        self.__rankingx, self.__rankingy = TELA_WIDTH / 2, TELA_HEIGHT - 180
+        self.__textinputx, self.__textinputy = TELA_WIDTH / 2, TELA_HEIGHT - 380
+        self.__jogarx, self.__jogary = TELA_WIDTH / 2, TELA_HEIGHT - 310
+        self.__personagemx, self.__personagemy = TELA_WIDTH / 2, TELA_HEIGHT - 240
+        self.__rankingx, self.__rankingy = TELA_WIDTH / 2, TELA_HEIGHT - 170
         self.__sairx, self.__sairy = TELA_WIDTH / 2, TELA_HEIGHT - 100
+        self.__nome = "Jogador1"
+        self.__manager = pygame_textinput.TextInputManager(self.__nome, lambda input: len(input) <= 10)
+        self.__textinput = pygame_textinput.TextInputVisualizer(self.__manager, self.get_controlador().get_font_object(40),
+                                               True, "white", cursor_color="white")
         self.set_cursor_pos(self.__jogarx + self.get_offset(), self.__jogary)
 
     def display_menu(self):
@@ -19,6 +25,8 @@ class MenuPrincipal(Menu):
             self.get_controlador().get_display().fill("black")
             self.get_controlador().draw_text("FUGA PELO", 100, TELA_WIDTH / 2, 100)
             self.get_controlador().draw_text("BRASIL", 100, TELA_WIDTH / 2, 220)
+            self.get_controlador().draw_text("NOME:", 40, TELA_WIDTH / 2 - 250, self.__textinputy)
+            self.__textinput_rect = self.get_controlador().draw_textinput(self.__textinput, self.__textinputx + 100, self.__textinputy)
             self.__botao_jogar = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary)
             self.__botao_personagem = self.get_controlador().draw_text("ESCOLHER PERSONAGEM", 40, self.__personagemx, self.__personagemy)
             self.__botao_ranking = self.get_controlador().draw_text("CLASSIFICAÇÃO", 40, self.__rankingx, self.__rankingy)
@@ -40,12 +48,15 @@ class MenuPrincipal(Menu):
                 self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
                 self.__state = "Sair"
             elif self.__state == "Sair":
+                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.__state = "Nome"
+            elif self.__state == "Nome":
                 self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
                 self.__state = "Jogar"
         if self.get_controlador().UP_KEY:
             if self.__state == "Jogar":
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
-                self.__state = "Sair"
+                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.__state = "Nome"
             elif self.__state == "Personagem":
                 self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
                 self.__state = "Jogar"
@@ -55,6 +66,9 @@ class MenuPrincipal(Menu):
             elif self.__state == "Sair":
                 self.get_cursor_rect().midtop = (self.__rankingx + self.get_offset(), self.__rankingy)
                 self.__state = "Ranking"
+            elif self.__state == "Nome":
+                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.__state = "Sair"
         if self.get_controlador().MOUSE:
             if self.__botao_jogar.collidepoint(self.get_controlador().MOUSE_POS):
                 self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
@@ -68,26 +82,36 @@ class MenuPrincipal(Menu):
             elif self.__botao_sair.collidepoint(self.get_controlador().MOUSE_POS):
                 self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
                 self.__state = "Sair"
+            elif self.__textinput_rect.collidepoint(self.get_controlador().MOUSE_POS):
+                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.__state = "Nome"
 
     def check_input(self):
         self.move_cursor()
+        if self.__state != "Nome":
+            self.__textinput.cursor_visible = False
         if self.__state == "Jogar":
             if (self.__botao_jogar.collidepoint(self.get_controlador().MOUSE_POS)
                     and self.get_controlador().MOUSE_CLICK or self.get_controlador().START_KEY):
+                self.__nome = self.__textinput.manager.value
                 self.set_run_display(False)
                 return True
-        if self.__state == "Personagem":
+        elif self.__state == "Personagem":
             if (self.__botao_personagem.collidepoint(self.get_controlador().MOUSE_POS)
                     and self.get_controlador().MOUSE_CLICK or self.get_controlador().START_KEY):
                 self.set_run_display(False)
                 self.get_controlador().set_menu_atual(self.get_controlador().get_menu_personagem())
-        if self.__state == "Ranking":
+        elif self.__state == "Ranking":
             if (self.__botao_ranking.collidepoint(self.get_controlador().MOUSE_POS)
                     and self.get_controlador().MOUSE_CLICK or self.get_controlador().START_KEY):
                 self.set_run_display(False)
                 self.get_controlador().set_menu_atual(self.get_controlador().get_menu_ranking())
-        if self.__state == "Sair":
+        elif self.__state == "Sair":
             if (self.__botao_sair.collidepoint(self.get_controlador().MOUSE_POS)
                     and self.get_controlador().MOUSE_CLICK or self.get_controlador().START_KEY):
-                self.set_run_display(False)
                 self.get_controlador().quit()
+        elif self.__state == "Nome":
+            self.get_controlador().update_textinput(self.__textinput)
+
+    def get_nome(self):
+        return self.__nome

@@ -46,6 +46,7 @@ class Controlador:
 
     def menu_run(self):
         self.__controlador_menus.menu_loop()
+        self.__nome = self.__controlador_menus.get_menu_principal().get_nome()
         self.run()
 
     def run(self):
@@ -77,7 +78,7 @@ class Controlador:
         self.__estado.save_highscore()
         #self.show_go_screen()
         self.reset()
-        self.__controlador_menus.set_menu_atual(self.__controlador_menus.__menu_gameover)
+        self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
         self.menu_run()
         
     def show_go_screen(self):
