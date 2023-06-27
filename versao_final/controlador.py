@@ -75,7 +75,10 @@ class Controlador:
                 inicializador(self, self.__estado._mapa)
                 
         self.__estado.save_highscore()
-        self.show_go_screen()
+        #self.show_go_screen()
+        self.reset()
+        self.__controlador_menus.set_menu_atual(self.__controlador_menus.__menu_gameover)
+        self.menu_run()
         
     def show_go_screen(self):
             font = pygame.font.Font(None, 30)
