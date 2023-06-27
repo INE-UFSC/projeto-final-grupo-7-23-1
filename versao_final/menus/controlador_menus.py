@@ -1,9 +1,11 @@
 import pygame
+import sys
 from constantes import *
 from menus.menu import Menu
 from menus.menu_principal import MenuPrincipal
 from menus.menu_personagem import MenuPersonagem
 from menus.menu_ranking import MenuRanking
+from menus.menu_gameover import MenuGameOver
 
 class ControladorMenus:
     def __init__(self):
@@ -19,6 +21,7 @@ class ControladorMenus:
         self.__menu_principal = MenuPrincipal(self)
         self.__menu_personagem = MenuPersonagem(self)
         self.__menu_ranking = MenuRanking(self)
+        self.__menu_gameover = MenuGameOver(self)
         self.__menu_atual = self.__menu_principal
 
     def menu_loop(self):
@@ -74,6 +77,8 @@ class ControladorMenus:
         self.__menu_atual.set_run_display(False)
         self.__running = False
         pygame.quit()
+        sys.quit()
+
 
     def get_running(self):
         return self.__running
@@ -87,6 +92,8 @@ class ControladorMenus:
         return self.__menu_personagem
     def get_menu_ranking(self):
         return self.__menu_ranking
+    def get_menu_gameover(self):
+        return self.__menu_gameover
 
     def set_running(self, boolean: bool):
         self.__running = boolean
