@@ -76,10 +76,10 @@ class Controlador:
                 inicializador(self, self.__estado._mapa)
                 
         self.__estado.save_highscore()
-        #self.show_go_screen()
-        self.reset()
-        self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
-        self.menu_run()
+        self.show_go_screen()
+        #self.reset()
+        #self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
+        #self.menu_run()
         
     def show_go_screen(self):
             font = pygame.font.Font(None, 30)
@@ -110,7 +110,8 @@ class Controlador:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False
+                pygame.quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -158,7 +159,11 @@ class Controlador:
             self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 
-        if len(self.__obstaculos_ativos) == 0 and len(self.__obstaculos) >0:
+        if (len(self.__obstaculos_ativos) == 0 or
+                (len(self.__obstaculos_ativos) == 1 and
+                 self.__obstaculos_ativos[0].get_posicao().x <=
+                 self.__obstaculos_ativos[0].get_random_x())
+                and len(self.__obstaculos)) > 0:
             self.__obstaculos_ativos.append(random.choice(self.__obstaculos))
 
         if pygame.time.get_ticks() - self.__tempo_efeito >= 5000:
@@ -169,10 +174,11 @@ class Controlador:
             obstaculo.update(0, dt, game_speed)
             if obstaculo.checkOver():
                 obstaculo.set_posicao_x(TELA_WIDTH)
-                self.__obstaculos_ativos.pop()
+                self.__obstaculos_ativos.pop(0)
+                obstaculo.randomize_x()
             if self.__jogador.get_rect().colliderect(obstaculo.get_rect()):
                     obstaculo.set_posicao_x(TELA_WIDTH)
-                    self.__obstaculos_ativos.pop()
+                    self.__obstaculos_ativos.pop(0)
                     if not self.__estado._invencibilidade :
                         screen.fill("red")
                         return False
