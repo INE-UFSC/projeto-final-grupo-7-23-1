@@ -65,22 +65,38 @@ class Controlador:
             if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
                 speed_mul += ACELERACAO
             testepont=int(self.__estado._pontuacao)
+            print(self.__estado._pontuacao)
             if testepont % 100 == 0:
-                if mapa <2:
-                    mapa+=1
-                self.__estado_inical._mapa = mapa
-                self.__estado._mapa = mapa
+                if self.__estado._mapa <2:
+                    self.__estado.set_mapa(self.__estado._mapa+1)
+                self.__estado_inical._mapa = self.__estado._mapa
                 self.__obstaculos = []
                 self.__efeitos = []
                 self.__background = []
                 inicializador(self, self.__estado._mapa)
                 
         self.__estado.save_highscore()
-        self.show_go_screen()
-        #self.reset()
-        #self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
-        #self.menu_run()
-        
+        ##self.show_go_screen()
+        self.reset()
+        self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
+        self.menu_run()
+
+    def reset(self):
+        self.__tempo_pontuação = pygame.time.get_ticks() 
+        self.__estado = copy.deepcopy(self.__estado_inical)
+        self.__estado._mapa = 1
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
+        self.__obstaculos = []
+        self.__obstaculos_ativos = []
+        self.__tempo_efeito = 0
+        self.__efeitos = []
+        self.__efeitos_ativos = []
+        self.__background = []
+        self.__background_ativos = []
+        self.__controlador_menus = ControladorMenus()
+        ##self.__tiles = math.ceil(TELA_WIDTH / background.get_imagem().get_width()) + 1
+        inicializador(self, self.__estado._mapa)
+
     def show_go_screen(self):
             font = pygame.font.Font(None, 30)
             screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
@@ -128,29 +144,18 @@ class Controlador:
                     self.__jogador.levantar()
 
         screen.fill("black")
-        if 0<=len (self.__background_ativos) and len (self.__background_ativos) < 2:
+        if (len(self.__background_ativos) == 0 or
+                (len(self.__background_ativos) == 1 and
+                 self.__background_ativos[0].get_posicao().x <=TELA_WIDTH)
+                and len(self.__background)) > 0:
             self.__background_ativos.append(random.choice(self.__background))
-            print(len(self.__background_ativos))
-            if len(self.__background_ativos)==2:
-               self.__background_ativos[1].set_posicao_x(TELA_WIDTH)
-            
+
         for background in self.__background_ativos:
-            """scroll = 0
-            i = 0
-            while(i < self.__tiles):
-                screen.blit(background.get_imagem(), (background.get_imagem().get_width()*i
-                                + scroll, 0))
-                i += 1
-            # FRAME FOR SCROLLING
-            scroll -= 6
-            if abs(scroll) > background.get_imagem().get_width():
-                scroll = 0"""
             background.draw(screen)
             background.update(0, dt, game_speed)
             if background.checkOver():
                 background.set_posicao_x(TELA_WIDTH)
                 self.__background_ativos.pop(0)
-                self.__background_ativos.append(random.choice(self.__background))
         self.__jogador.draw(screen)
         self.__jogador.get_imagem().convert_alpha()
         self.__jogador.get_imagem().set_alpha(255)

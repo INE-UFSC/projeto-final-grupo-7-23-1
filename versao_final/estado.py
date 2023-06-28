@@ -13,6 +13,9 @@ class Estado:
         self._pontuacao = pontuacao
     def gerar_pontuacao(self, tempo_inicial):
         self._pontuacao = (pygame.time.get_ticks()-tempo_inicial)/100
+    
+    def set_mapa(self,mapa):
+        self._mapa = mapa
 
     def save_highscore(self) -> bool:
         if self._pontuacao <= self.load_highscore(): return False
