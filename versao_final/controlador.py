@@ -20,8 +20,8 @@ class Controlador:
     def __init__(self):
         pygame.init()
         pygame.font.init()
-        self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1,False)
-        self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1,False)
+        self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1, False)
+        self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1, False)
         self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
         self.__obstaculos = []
         self.__obstaculos_ativos = []
@@ -30,9 +30,7 @@ class Controlador:
         self.__efeitos = []
         self.__efeitos_ativos = []
         self.__background = []
-        self.__background_ativos = []
         self.__controlador_menus = ControladorMenus()
-        ##self.__tiles = math.ceil(TELA_WIDTH / background.get_imagem().get_width()) + 1
         inicializador(self, self.__estado._mapa)
 
     def add_obstaculo(self, obstaculo):
@@ -53,30 +51,31 @@ class Controlador:
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
         font = pygame.font.Font(None, 30)
-        mapa=1
+        #mapa=1
         running = True
         dt = 0
         speed_mul = 1
-
+        enable_switch = True
 
         while running:
             running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
             dt = clock.tick(FPS) / 1000
-            if speed_mul < MAX_SPEED: #velocidade maxima de 13 é atingida por volta de 2100 pontos
+            if speed_mul < MAX_SPEED:
                 speed_mul += ACELERACAO
             testepont=int(self.__estado._pontuacao)
-            print(self.__estado._pontuacao)
-            if testepont % 100 == 0:
-                if self.__estado._mapa <2:
-                    self.__estado.set_mapa(self.__estado._mapa+1)
+            if testepont % 100 == 0 and enable_switch:
+                enable_switch = False
+                mapa = self.__estado._mapa + 1 if self.__estado._mapa < 3 else 1
+                self.__estado.set_mapa(mapa)
                 self.__estado_inical._mapa = self.__estado._mapa
                 self.__obstaculos = []
                 self.__efeitos = []
                 self.__background = []
                 inicializador(self, self.__estado._mapa)
-                
+            elif testepont % 105 == 0 and not enable_switch:
+                enable_switch = True
+
         self.__estado.save_highscore()
-        ##self.show_go_screen()
         self.reset()
         self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
         self.menu_run()
@@ -92,30 +91,8 @@ class Controlador:
         self.__efeitos = []
         self.__efeitos_ativos = []
         self.__background = []
-        self.__background_ativos = []
         self.__controlador_menus = ControladorMenus()
-        ##self.__tiles = math.ceil(TELA_WIDTH / background.get_imagem().get_width()) + 1
         inicializador(self, self.__estado._mapa)
-
-    def show_go_screen(self):
-            font = pygame.font.Font(None, 30)
-            screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
-            text_surface = font.render("Pressione espaço para jogar novamente", True, "white")
-            screen.blit(text_surface, (TELA_WIDTH / 2, TELA_HEIGHT * 7 / 8))
-            pygame.display.flip()
-            self.__tempo_pontuação = pygame.time.get_ticks()
-            done = False
-            while not done:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        done = True
-                        return False
-                    if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_SPACE:
-                                done = True
-                                self.run()
-                                self.__estado = copy.deepcopy(self.__estado_inical)
-                                self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
         keys = pygame.key.get_pressed()
@@ -144,21 +121,17 @@ class Controlador:
                     self.__jogador.levantar()
 
         screen.fill("black")
-        if (len(self.__background_ativos) == 0 or
-                (len(self.__background_ativos) == 1 and
-                 self.__background_ativos[0].get_posicao().x <=TELA_WIDTH)
-                and len(self.__background)) > 0:
-            self.__background_ativos.append(random.choice(self.__background))
 
-        for background in self.__background_ativos:
+        for background in self.__background:
             background.draw(screen)
             background.update(0, dt, game_speed)
             if background.checkOver():
                 background.set_posicao_x(TELA_WIDTH)
-                self.__background_ativos.pop(0)
+
         self.__jogador.draw(screen)
         self.__jogador.get_imagem().convert_alpha()
         self.__jogador.get_imagem().set_alpha(255)
+
         if self.__estado._invencibilidade:
             self.__jogador.get_imagem().set_alpha(123)
             self.__jogador.draw(screen)
@@ -187,9 +160,8 @@ class Controlador:
                     if not self.__estado._invencibilidade :
                         screen.fill("red")
                         return False
-                
-        
-        if len(self.__efeitos_ativos) == 0 and len(self.__efeitos) >0:
+
+        if len(self.__efeitos_ativos) == 0 and len(self.__efeitos) > 0:
             self.__efeitos_ativos.append(random.choice(self.__efeitos))
 
         for efeito in self.__efeitos_ativos:

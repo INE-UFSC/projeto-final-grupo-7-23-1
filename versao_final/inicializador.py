@@ -19,11 +19,13 @@ class inicializador:
     def __init__(self,controlador,mapa):
         self.__dictBackgrounds = {
             1 : [pygame.image.load(CAMINHO_ASSETS+"amazonia1.jpg"),pygame.image.load(CAMINHO_ASSETS+"amazonia2.jpg")],
-            2 : [pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg"),pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg")]
+            2 : [pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg"),pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg")],
+            3 : [pygame.image.load(CAMINHO_ASSETS+"foresttest.png"), pygame.image.load(CAMINHO_ASSETS+"foresttest.png")]
             }
         self.__dictInimigo ={
             1: (pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"),),
-            2: (pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg"),)
+            2: (pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg"),),
+            3: (pygame.image.load(CAMINHO_ASSETS+"foresttest.png"),)
         }
         self.add_controlador(controlador,mapa)
     # obstaculos terrestres
@@ -47,7 +49,7 @@ class inicializador:
 
         #backgrounds
         self.background1= Background(1,Vector2(0,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',self.__dictBackgrounds[mapa][0])
-        self.background2= Background(1,Vector2(0,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',self.__dictBackgrounds[mapa][1])
+        self.background2= Background(1,Vector2(TELA_WIDTH,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',self.__dictBackgrounds[mapa][1])
 
 
     def add_controlador(self,controlador,mapa):
