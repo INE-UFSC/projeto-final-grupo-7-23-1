@@ -10,6 +10,7 @@ from menus.menu_gameover import MenuGameOver
 class ControladorMenus:
     def __init__(self):
         pygame.init()
+        pygame.font.init()
         self.__running = True
         self.UP_KEY, self.DOWN_KEY, self.START_KEY = False, False, False
         self.BACK_KEY, self.LEFT_KEY, self.RIGHT_KEY = False, False, False
@@ -23,14 +24,15 @@ class ControladorMenus:
         self.__menu_ranking = MenuRanking(self)
         self.__menu_gameover = MenuGameOver(self)
         self.__menu_atual = self.__menu_principal
-        pygame.key.set_repeat(250, 40)
 
     def menu_loop(self):
         self.__running = True
+        pygame.key.set_repeat(250, 40)
         while self.__running:
             self.check_events()
             self.update_mouse()
             if self.__menu_atual.display_menu():
+                pygame.key.set_repeat(0, 40)
                 self.__running = False
             self.reset_keys()
 
@@ -64,7 +66,6 @@ class ControladorMenus:
         self.MOUSE, self.MOUSE_CLICK = False, False
     
     def draw_text(self, text, size, x, y, color= "white"):
-        pygame.font.init()
         font = pygame.font.Font(self.__font, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
@@ -98,7 +99,6 @@ class ControladorMenus:
     def get_screen(self):
         return self.__screen
     def get_font_object(self, size):
-        pygame.font.init()
         return pygame.font.Font(self.__font, size)
     def get_menu_principal(self):
         return self.__menu_principal
