@@ -23,22 +23,22 @@ class inicializador:
             3 : [pygame.image.load(CAMINHO_ASSETS+"foresttest.png"), pygame.image.load(CAMINHO_ASSETS+"foresttest.png")]
             }
         self.__dictInimigo ={
-            1: (pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"),),
-            2: (pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg"),),
-            3: (pygame.image.load(CAMINHO_ASSETS+"foresttest.png"),)
+            1: [pygame.image.load(CAMINHO_ASSETS+"jacare1.png"), pygame.image.load(CAMINHO_ASSETS+"jacare2.png")],
+            2: [pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg")],
+            3: [pygame.image.load(CAMINHO_ASSETS+"foresttest.png")]
         }
         self.add_controlador(controlador,mapa)
     # obstaculos terrestres
 
     def sel_imagens(self,mapa):
-        self.t_fino_baixo = Obstaculo(1, Vector2(1280, 516), Vector2(45, 60),[self.__dictInimigo[mapa][0]])
-        self.t_fino_alto = Obstaculo(2, Vector2(1280, 466), Vector2(45, 110),[self.__dictInimigo[mapa][0]])
-        self.t_largo_baixo = Obstaculo(3, Vector2(1280, 516), Vector2(90, 60),[self.__dictInimigo[mapa][0]])
-        self.t_largo_alto = Obstaculo(4, Vector2(1280, 476), Vector2(90, 100),[self.__dictInimigo[mapa][0]])
+        self.t_fino_baixo = Obstaculo(1, Vector2(1280, 516), Vector2(45, 60),self.__dictInimigo[mapa])
+        self.t_fino_alto = Obstaculo(2, Vector2(1280, 466), Vector2(45, 110),self.__dictInimigo[mapa])
+        self.t_largo_baixo = Obstaculo(3, Vector2(1280, 516), Vector2(90, 60),self.__dictInimigo[mapa])
+        self.t_largo_alto = Obstaculo(4, Vector2(1280, 476), Vector2(90, 100),self.__dictInimigo[mapa])
 
         #obstaculos aereos
-        self.a_voo_baixo = Obstaculo(5, Vector2(1280, 476), Vector2(35, 40),[self.__dictInimigo[mapa][0]])
-        self.a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),[self.__dictInimigo[mapa][0]])
+        self.a_voo_baixo = Obstaculo(5, Vector2(1280, 476), Vector2(35, 40),self.__dictInimigo[mapa])
+        self.a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
 
         #caixas efeitos
         imagens_efeitos = [
