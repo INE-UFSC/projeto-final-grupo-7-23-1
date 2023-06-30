@@ -22,7 +22,7 @@ class Controlador:
         pygame.font.init()
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1, False)
         self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1, False)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -84,7 +84,7 @@ class Controlador:
         self.__tempo_pontuação = pygame.time.get_ticks() 
         self.__estado = copy.deepcopy(self.__estado_inical)
         self.__estado._mapa = 1
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg"))
+        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -129,11 +129,14 @@ class Controlador:
                 background.set_posicao_x(TELA_WIDTH)
 
         self.__jogador.draw(screen)
-        self.__jogador.get_imagem().convert_alpha()
-        self.__jogador.get_imagem().set_alpha(255)
+        for imagem in self.__jogador.get_imagens():
+            imagem.convert_alpha()
+        for imagem in self.__jogador.get_imagens():
+            imagem.set_alpha(255)
 
         if self.__estado._invencibilidade:
-            self.__jogador.get_imagem().set_alpha(123)
+            for imagem in self.__jogador.get_imagens():
+                imagem.set_alpha(255)
             self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 
