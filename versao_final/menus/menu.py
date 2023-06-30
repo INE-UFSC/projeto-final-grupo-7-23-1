@@ -39,5 +39,3 @@ class Menu(ABC):
     
     def set_run_display(self, boolean: bool):
         self.__run_display = boolean
-    def set_cursor_pos(self, left, top):
-        self.__cursor_rect = pygame.Rect(left, top, 30, 30)

@@ -15,7 +15,7 @@ class MenuPrincipal(Menu):
         self.__manager = pygame_textinput.TextInputManager(self.__nome, lambda input: len(input) <= 10)
         self.__textinput = pygame_textinput.TextInputVisualizer(self.__manager, self.get_controlador().get_font_object(40),
                                                True, "white", cursor_color="white")
-        self.set_cursor_pos(self.__jogarx + self.get_offset(), self.__jogary)
+        self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
 
     def display_menu(self):
         self.set_run_display(True)

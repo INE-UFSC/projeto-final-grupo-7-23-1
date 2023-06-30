@@ -7,7 +7,7 @@ class MenuPersonagem(Menu):
         self.__state = "Teste"
         self.__testex, self.__testey = TELA_WIDTH / 2, TELA_HEIGHT / 2
         self.__voltarx, self.__voltary = TELA_WIDTH / 2, TELA_HEIGHT - 100
-        self.set_cursor_pos(self.__testex + self.get_offset(), self.__testey)
+        self.get_cursor_rect().midtop = (self.__testex + self.get_offset(), self.__testey)
     
     def display_menu(self):
         self.set_run_display(True)
