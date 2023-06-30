@@ -1,3 +1,4 @@
+from pygame import Rect
 from menus.menu import Menu
 from constantes import *
 
@@ -5,10 +6,13 @@ class MenuGameOver(Menu):
     def __init__(self, controlador):
         super().__init__(controlador)
         self.__state = "Jogar"
-        self.__jogarx, self.__jogary = 380, TELA_HEIGHT - 100
-        self.__voltarx, self.__voltary = TELA_WIDTH / 2 + 220, TELA_HEIGHT - 100
-        self.__sairx, self.__sairy = TELA_WIDTH / 2 + 470, TELA_HEIGHT - 100
-        self.set_cursor_pos(self.__jogarx + self.get_offset(), self.__jogary)
+        self.__jogarx, self.__jogary = 280, TELA_HEIGHT - 100
+        self.__voltarx, self.__voltary = TELA_WIDTH / 2 + 100, TELA_HEIGHT - 100
+        self.__sairx, self.__sairy = TELA_WIDTH - 180, TELA_HEIGHT - 100
+        self.__offset_jogar = -210
+        self.__offset_voltar = -210
+        self.__offset_sair = -110
+        self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
     
     def display_menu(self):
         self.set_run_display(True)
@@ -16,10 +20,14 @@ class MenuGameOver(Menu):
             self.get_controlador().check_events()
             self.get_controlador().update_mouse()
             self.get_controlador().get_display().fill("black")
-            self.get_controlador().draw_text("FIM DO JOGO", 80, TELA_WIDTH/ 2, 100)
-            self.get_controlador().draw_text("RANKING", 150, TELA_WIDTH/ 2, TELA_HEIGHT / 2 + 50, "blue")
-            self.__botao_jogar = self.get_controlador().draw_text("JOGAR NOVAMENTE", 40, self.__jogarx, self.__jogary)
-            self.__botao_voltar = self.get_controlador().draw_text("MENU", 40, self.__voltarx, self.__voltary)
+            self.get_controlador().draw_text("FIM DO JOGO", 80, TELA_WIDTH / 2, 100)
+            self.get_controlador().draw_text("RANKING", 150, TELA_WIDTH / 2, TELA_HEIGHT / 2 + 50, "blue")
+            rect_jogar1 = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary - 25)
+            rect_jogar2 = self.get_controlador().draw_text("NOVAMENTE", 40, self.__jogarx, self.__jogary + 25)
+            self.__botao_jogar = Rect(rect_jogar2.left, rect_jogar1.top, rect_jogar2.width, rect_jogar1.height * 2 + 10)
+            rect_voltar1 = self.get_controlador().draw_text("MENU", 40, self.__voltarx, self.__voltary - 25)
+            rect_voltar2 = self.get_controlador().draw_text("PRINCIPAL", 40, self.__voltarx, self.__voltary + 25)
+            self.__botao_voltar = Rect(rect_voltar2.left, rect_voltar1.top, rect_voltar2.width, rect_voltar1.height * 2 + 10)
             self.__botao_sair = self.get_controlador().draw_text("SAIR", 40, self.__sairx, self.__sairy)
             if self.check_input():
                 return True
@@ -29,33 +37,33 @@ class MenuGameOver(Menu):
     def move_cursor(self):
         if self.get_controlador().RIGHT_KEY:
             if self.__state == "Jogar":
-                self.get_cursor_rect().midtop = (self.__voltarx + self.get_offset(), self.__voltary)
+                self.get_cursor_rect().midtop = (self.__voltarx + self.__offset_voltar, self.__voltary)
                 self.__state = "Voltar"
             elif self.__state == "Voltar":
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
             elif self.__state == "Sair":
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
         if self.get_controlador().LEFT_KEY:
             if self.__state == "Jogar":
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
             elif self.__state == "Voltar":
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
             elif self.__state == "Sair":
-                self.get_cursor_rect().midtop = (self.__voltarx + self.get_offset(), self.__voltary)
+                self.get_cursor_rect().midtop = (self.__voltarx + self.__offset_voltar, self.__voltary)
                 self.__state = "Voltar"
         if self.get_controlador().MOUSE:
             if self.__botao_jogar.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
             elif self.__botao_voltar.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__voltarx + self.get_offset(), self.__voltary)
+                self.get_cursor_rect().midtop = (self.__voltarx + self.__offset_voltar, self.__voltary)
                 self.__state = "Voltar"
             elif self.__botao_sair.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
     
     def check_input(self):
