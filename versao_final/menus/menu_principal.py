@@ -12,11 +12,16 @@ class MenuPrincipal(Menu):
         self.__personagemx, self.__personagemy = TELA_WIDTH / 2, TELA_HEIGHT - 240
         self.__rankingx, self.__rankingy = TELA_WIDTH / 2, TELA_HEIGHT - 170
         self.__sairx, self.__sairy = TELA_WIDTH / 2, TELA_HEIGHT - 100
+        self.__offset_textinput = -480
+        self.__offset_jogar = -130
+        self.__offset_personagem = -410
+        self.__offset_ranking = -290
+        self.__offset_sair = -110
         self.__nome = "Jogador1"
         self.__manager = pygame_textinput.TextInputManager(self.__nome, lambda input: len(input) <= 10)
         self.__textinput = pygame_textinput.TextInputVisualizer(self.__manager, self.get_controlador().get_font_object(40),
                                                True, "white", cursor_color="white")
-        self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+        self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
 
     def display_menu(self):
         self.set_run_display(True)
@@ -42,51 +47,51 @@ class MenuPrincipal(Menu):
     def move_cursor(self):
         if self.get_controlador().DOWN_KEY:
             if self.__state == "Jogar":
-                self.get_cursor_rect().midtop = (self.__personagemx + self.get_offset(), self.__personagemy)
+                self.get_cursor_rect().midtop = (self.__personagemx + self.__offset_personagem, self.__personagemy)
                 self.__state = "Personagem"
             elif self.__state == "Personagem":
-                self.get_cursor_rect().midtop = (self.__rankingx + self.get_offset(), self.__rankingy)
+                self.get_cursor_rect().midtop = (self.__rankingx + self.__offset_ranking, self.__rankingy)
                 self.__state = "Ranking"
             elif self.__state == "Ranking":
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
             elif self.__state == "Sair":
-                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.get_cursor_rect().midtop = (self.__textinputx + self.__offset_textinput, self.__textinputy)
                 self.__state = "Nome"
             elif self.__state == "Nome":
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
         if self.get_controlador().UP_KEY:
             if self.__state == "Jogar":
-                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.get_cursor_rect().midtop = (self.__textinputx + self.__offset_textinput, self.__textinputy)
                 self.__state = "Nome"
             elif self.__state == "Personagem":
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
             elif self.__state == "Ranking":
-                self.get_cursor_rect().midtop = (self.__personagemx + self.get_offset(), self.__personagemy)
+                self.get_cursor_rect().midtop = (self.__personagemx + self.__offset_personagem, self.__personagemy)
                 self.__state = "Personagem"
             elif self.__state == "Sair":
-                self.get_cursor_rect().midtop = (self.__rankingx + self.get_offset(), self.__rankingy)
+                self.get_cursor_rect().midtop = (self.__rankingx + self.__offset_ranking, self.__rankingy)
                 self.__state = "Ranking"
             elif self.__state == "Nome":
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
         if self.get_controlador().MOUSE:
             if self.__botao_jogar.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__jogarx + self.get_offset(), self.__jogary)
+                self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
                 self.__state = "Jogar"
             elif self.__botao_personagem.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__personagemx + self.get_offset(), self.__personagemy)
+                self.get_cursor_rect().midtop = (self.__personagemx + self.__offset_personagem, self.__personagemy)
                 self.__state = "Personagem"
             elif self.__botao_ranking.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__rankingx + self.get_offset(), self.__rankingy)
+                self.get_cursor_rect().midtop = (self.__rankingx + self.__offset_ranking, self.__rankingy)
                 self.__state = "Ranking"
             elif self.__botao_sair.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__sairx + self.get_offset(), self.__sairy)
+                self.get_cursor_rect().midtop = (self.__sairx + self.__offset_sair, self.__sairy)
                 self.__state = "Sair"
             elif self.__textinput_rect.collidepoint(self.get_controlador().MOUSE_POS):
-                self.get_cursor_rect().midtop = (self.__textinputx + self.get_offset(), self.__textinputy)
+                self.get_cursor_rect().midtop = (self.__textinputx + self.__offset_textinput, self.__textinputy)
                 self.__state = "Nome"
 
     def check_input(self):

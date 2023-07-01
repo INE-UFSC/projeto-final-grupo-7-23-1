@@ -7,7 +7,8 @@ class MenuRanking(Menu):
         self.__state = "Voltar"
         self.__voltarx, self.__voltary = TELA_WIDTH / 2, TELA_HEIGHT - 100
         self.__rankingleft, self.__rankingtop = 180, 500
-        self.get_cursor_rect().midtop = (self.__voltarx + self.get_offset(), self.__voltary)
+        self.__offset_voltar = -150
+        self.get_cursor_rect().midtop = (self.__voltarx + self.__offset_voltar, self.__voltary)
     
     def display_menu(self):
         self.set_run_display(True)

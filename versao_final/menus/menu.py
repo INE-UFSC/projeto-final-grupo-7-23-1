@@ -7,7 +7,6 @@ class Menu(ABC):
         self.__controlador = controlador
         self.__run_display = True
         self.__cursor_rect = pygame.Rect(0, 0, 30, 30)
-        self.__offset = -400
         self.__font = CAMINHO_ASSETS + "font.ttf"
 
     def draw_cursor(self):
@@ -32,8 +31,6 @@ class Menu(ABC):
         return self.__run_display
     def get_cursor_rect(self):
         return self.__cursor_rect
-    def get_offset(self):
-        return self.__offset
     def get_font(self):
         return self.__font
     

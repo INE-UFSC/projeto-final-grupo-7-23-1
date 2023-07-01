@@ -12,7 +12,7 @@ class MenuPersonagem(Menu):
         self.__p3x, self.__p3y = 1020, TELA_HEIGHT / 2 + 30
         self.__voltarx, self.__voltary = TELA_WIDTH / 2, TELA_HEIGHT - 100
         self.__offset_p = -82.5
-        self.__offset_voltar = self.get_offset()
+        self.__offset_voltar = -150
         self.__rect_borda = Rect(0, 0, 110, 210)
         self.__rect_fundo = Rect(0, 0, 100, 200)
         self.__personagem1 = [image.load(CAMINHO_ASSETS + "jacare1.png"), image.load(CAMINHO_ASSETS + "jacare2.png")]
