@@ -1,4 +1,5 @@
 import pygame_textinput
+from pygame import Rect
 from menus.menu import Menu
 from constantes import *
 
@@ -6,7 +7,7 @@ class MenuPrincipal(Menu):
     def __init__(self, controlador):
         super().__init__(controlador)
         self.__state = "Jogar"
-        self.__textinputx, self.__textinputy = TELA_WIDTH / 2, TELA_HEIGHT - 380
+        self.__textinputx, self.__textinputy = TELA_WIDTH / 2 + 100, TELA_HEIGHT - 380
         self.__jogarx, self.__jogary = TELA_WIDTH / 2, TELA_HEIGHT - 310
         self.__personagemx, self.__personagemy = TELA_WIDTH / 2, TELA_HEIGHT - 240
         self.__rankingx, self.__rankingy = TELA_WIDTH / 2, TELA_HEIGHT - 170
@@ -25,8 +26,10 @@ class MenuPrincipal(Menu):
             self.get_controlador().get_display().fill("black")
             self.get_controlador().draw_text("FUGA PELO", 100, TELA_WIDTH / 2, 100)
             self.get_controlador().draw_text("BRASIL", 100, TELA_WIDTH / 2, 220)
-            self.get_controlador().draw_text("NOME:", 40, TELA_WIDTH / 2 - 250, self.__textinputy)
-            self.__textinput_rect = self.get_controlador().draw_textinput(self.__textinput, self.__textinputx + 100, self.__textinputy)
+            rect_textinput1 = self.get_controlador().draw_text("NOME:", 40, TELA_WIDTH / 2 - 250, self.__textinputy)
+            rect_textinput2 = self.get_controlador().draw_textinput(self.__textinput, self.__textinputx, self.__textinputy)
+            self.__textinput_rect = Rect(rect_textinput1.left, rect_textinput1.top,
+                                         rect_textinput2.right - rect_textinput1.left - 40, rect_textinput1.height)
             self.__botao_jogar = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary)
             self.__botao_personagem = self.get_controlador().draw_text("ESCOLHER PERSONAGEM", 40, self.__personagemx, self.__personagemy)
             self.__botao_ranking = self.get_controlador().draw_text("CLASSIFICAÇÃO", 40, self.__rankingx, self.__rankingy)

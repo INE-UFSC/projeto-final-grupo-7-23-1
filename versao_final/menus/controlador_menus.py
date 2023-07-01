@@ -37,7 +37,8 @@ class ControladorMenus:
             self.reset_keys()
 
     def check_events(self):
-        for event in pygame.event.get():
+        self.__eventlist = pygame.event.get()
+        for event in self.__eventlist:
             if event.type == pygame.QUIT:
                 self.quit()
             if event.type == pygame.KEYDOWN:
@@ -58,7 +59,6 @@ class ControladorMenus:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.MOUSE_CLICK = True
-
 
     def reset_keys(self):
         self.UP_KEY, self.DOWN_KEY, self.START_KEY = False, False, False
@@ -90,8 +90,8 @@ class ControladorMenus:
         image_rect.center = (x, y)
         self.__display.blit(image, image_rect)
 
-    def update_textinput(self, text_input):
-        text_input.update(pygame.event.get())
+    def update_textinput(self, textinput):
+        textinput.update(self.__eventlist)
 
     def update_mouse(self):
         self.MOUSE_POS = pygame.mouse.get_pos()
