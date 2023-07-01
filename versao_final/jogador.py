@@ -4,9 +4,9 @@ from entidade import *
 from constantes import *
 
 class Jogador(Entidade):
-    def __init__(self, posicao, tamanho,cor, imagem):
-        super().__init__(posicao, tamanho, cor, imagem)
-        self.__altura_inicial = tamanho.y
+    def __init__(self):
+        self.__altura_inicial = 100
+        super().__init__(pygame.Vector2(50, 476), pygame.Vector2(50, self.__altura_inicial), "white", [])
 
     def jump(self):
         if self.get_posicao().y >= TELA_HEIGHT-CHAO-self.get_tamanho().y:
