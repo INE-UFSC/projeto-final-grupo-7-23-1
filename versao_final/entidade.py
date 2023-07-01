@@ -35,11 +35,12 @@ class Entidade(ABC):
             self.__velocidade.y = 0
 
     def draw(self, surface):
-        self.__current_frame += 0.2
-        self.__current_frame = self.__current_frame % len(self.__imagens)
-
-        surface.blit(self.__imagens[int(self.__current_frame)], self.__rect)
-        #pygame.draw.rect(surface, self.__cor, self.__rect)
+        if len(self.__imagens) > 0:
+            self.__current_frame += 0.2
+            self.__current_frame = self.__current_frame % len(self.__imagens)
+            surface.blit(self.__imagens[int(self.__current_frame)], self.__rect)
+        else:
+            pygame.draw.rect(surface, self.__cor, self.__rect)
 
     def set_velocidade(self, velocidade):
         self.__velocidade = velocidade
