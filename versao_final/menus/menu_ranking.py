@@ -6,6 +6,7 @@ class MenuRanking(Menu):
         super().__init__(controlador)
         self.__state = "Voltar"
         self.__voltarx, self.__voltary = TELA_WIDTH / 2, TELA_HEIGHT - 100
+        self.__rankingleft, self.__rankingtop = 180, 500
         self.get_cursor_rect().midtop = (self.__voltarx + self.get_offset(), self.__voltary)
     
     def display_menu(self):
@@ -15,7 +16,7 @@ class MenuRanking(Menu):
             self.get_controlador().update_mouse()
             self.get_controlador().get_display().fill("black")
             self.get_controlador().draw_text("CLASSIFICAÇÃO", 60, TELA_WIDTH / 2, 100)
-            self.get_controlador().draw_text("RANKING", 150, TELA_WIDTH / 2, TELA_HEIGHT / 2 + 50, "blue")
+            self.get_controlador().draw_ranking(40, self.__rankingleft, self.__rankingtop)
             self.__botao_voltar = self.get_controlador().draw_text("VOLTAR", 40, self.__voltarx, self.__voltary)
             self.check_input()
             self.draw_cursor()

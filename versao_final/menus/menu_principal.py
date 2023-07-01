@@ -97,6 +97,8 @@ class MenuPrincipal(Menu):
             if (self.__botao_jogar.collidepoint(self.get_controlador().MOUSE_POS)
                     and self.get_controlador().MOUSE_CLICK or self.get_controlador().START_KEY):
                 self.__nome = self.__textinput.manager.value
+                while len(self.__nome) < 10:
+                    self.__nome += " "
                 self.set_run_display(False)
                 return True
         elif self.__state == "Personagem":

@@ -9,6 +9,7 @@ class MenuGameOver(Menu):
         self.__jogarx, self.__jogary = 280, TELA_HEIGHT - 100
         self.__voltarx, self.__voltary = TELA_WIDTH / 2 + 100, TELA_HEIGHT - 100
         self.__sairx, self.__sairy = TELA_WIDTH - 180, TELA_HEIGHT - 100
+        self.__rankingleft, self.__rankingtop = 295, 520
         self.__offset_jogar = -210
         self.__offset_voltar = -210
         self.__offset_sair = -110
@@ -21,7 +22,9 @@ class MenuGameOver(Menu):
             self.get_controlador().update_mouse()
             self.get_controlador().get_display().fill("black")
             self.get_controlador().draw_text("FIM DO JOGO", 60, TELA_WIDTH / 2, 100)
-            self.get_controlador().draw_text("RANKING", 150, TELA_WIDTH / 2, TELA_HEIGHT / 2 + 50, "blue")
+            self.get_controlador().draw_text(f"Sua pontuação foi de {100000}.", 30, TELA_WIDTH / 2, 200)
+            self.get_controlador().draw_text(f"Você ficou entre os cinco melhores locais!", 30, TELA_WIDTH / 2, 250)
+            self.get_controlador().draw_ranking(30, self.__rankingleft, self.__rankingtop)
             rect_jogar1 = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary - 25)
             rect_jogar2 = self.get_controlador().draw_text("NOVAMENTE", 40, self.__jogarx, self.__jogary + 25)
             self.__botao_jogar = Rect(rect_jogar2.left, rect_jogar1.top, rect_jogar2.width, rect_jogar1.height * 2 + 10)

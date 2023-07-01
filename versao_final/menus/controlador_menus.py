@@ -28,6 +28,8 @@ class ControladorMenus:
     def menu_loop(self):
         self.__running = True
         pygame.key.set_repeat(250, 40)
+        self.__ranking = {"Jorge     ": 100, "Zeca      ": 523, "Zezinho   ": 69,
+                          "AAAAAAAAAA": 100000, "BBBBBBBBBB": 50000}
         while self.__running:
             self.check_events()
             self.update_mouse()
@@ -89,6 +91,15 @@ class ControladorMenus:
         image_rect = image.get_rect()
         image_rect.center = (x, y)
         self.__display.blit(image, image_rect)
+
+    def draw_ranking(self, size, left, top):
+        colors = ["green", "yellow", "blue", "white", "white"]
+        for i in range(5):
+            self.draw_text(f"{i+1}°", size, left, top - (4-i) * (size*1.5), colors[i])
+        for i, k in enumerate(self.__ranking):
+            self.draw_text(k, size, left + 10*size, top - (4-i) * (size*1.5), colors[i])
+            self.draw_text(str(self.__ranking[k]), size,
+                           left + 21.5*size, top - (4-i) * (size*1.5), colors[i])
 
     def update_textinput(self, textinput):
         textinput.update(self.__eventlist)
