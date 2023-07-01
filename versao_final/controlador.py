@@ -45,6 +45,7 @@ class Controlador:
     def menu_run(self):
         self.__controlador_menus.menu_loop()
         self.__nome = self.__controlador_menus.get_menu_principal().get_nome()
+        self.__jogador.set_imagens(self.__controlador_menus.get_menu_personagem().get_personagem())
         self.run()
 
     def run(self):
@@ -56,6 +57,8 @@ class Controlador:
         dt = 0
         speed_mul = 1
         enable_switch = True
+        for imagem in self.__jogador.get_imagens():
+            imagem.convert_alpha()
 
         while running:
             running = self.__update(screen, dt, font, self.__estado._velocidade*speed_mul)
@@ -91,7 +94,6 @@ class Controlador:
         self.__efeitos = []
         self.__efeitos_ativos = []
         self.__background = []
-        self.__controlador_menus = ControladorMenus()
         inicializador(self, self.__estado._mapa)
 
     def __update(self, screen: pygame.Surface, dt: float, font: pygame.font.Font, game_speed: int) -> bool:
@@ -130,13 +132,11 @@ class Controlador:
 
         self.__jogador.draw(screen)
         for imagem in self.__jogador.get_imagens():
-            imagem.convert_alpha()
-        for imagem in self.__jogador.get_imagens():
             imagem.set_alpha(255)
 
         if self.__estado._invencibilidade:
             for imagem in self.__jogador.get_imagens():
-                imagem.set_alpha(255)
+                imagem.set_alpha(123)
             self.__jogador.draw(screen)
         self.__jogador.update(self.__estado._gravidade, dt)
 

@@ -20,7 +20,7 @@ class MenuGameOver(Menu):
             self.get_controlador().check_events()
             self.get_controlador().update_mouse()
             self.get_controlador().get_display().fill("black")
-            self.get_controlador().draw_text("FIM DO JOGO", 80, TELA_WIDTH / 2, 100)
+            self.get_controlador().draw_text("FIM DO JOGO", 60, TELA_WIDTH / 2, 100)
             self.get_controlador().draw_text("RANKING", 150, TELA_WIDTH / 2, TELA_HEIGHT / 2 + 50, "blue")
             rect_jogar1 = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary - 25)
             rect_jogar2 = self.get_controlador().draw_text("NOVAMENTE", 40, self.__jogarx, self.__jogary + 25)

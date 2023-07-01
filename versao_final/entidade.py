@@ -42,7 +42,7 @@ class Entidade(ABC):
     def set_height(self, height):
         self.__rect.height = height
     def set_imagens(self, imagens):
-        self.__imagens = imagens
+        self.__imagens = list(map(lambda x: pygame.transform.scale(x, (self.__rect.width, self.__rect.height)), imagens))
     
     def get_posicao(self):
         return pygame.Vector2(self.__rect.x, self.__rect.y)

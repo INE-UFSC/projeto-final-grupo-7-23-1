@@ -78,6 +78,17 @@ class ControladorMenus:
         text_input_rect.center = (x, y)
         self.__display.blit(text_input.surface, text_input_rect)
         return text_input_rect
+    
+    def draw_rect(self, rect, x, y, color):
+        new_rect = rect.copy()
+        new_rect.center = (x, y)
+        pygame.draw.rect(self.__display, color, new_rect)
+        return new_rect
+
+    def draw_image(self, image, x, y):
+        image_rect = image.get_rect()
+        image_rect.center = (x, y)
+        self.__display.blit(image, image_rect)
 
     def update_textinput(self, text_input):
         text_input.update(pygame.event.get())
