@@ -1,10 +1,9 @@
 import pygame
 from entidade import *
-from constantes import TELA_WIDTH
 
 class Background(Entidade):
-    def __init__(self, id, posicao, tamanho,cor, imagem):
-        super().__init__(id, posicao, tamanho,cor,imagem)
+    def __init__(self, posicao, tamanho,cor, imagem):
+        super().__init__(posicao, tamanho,cor,imagem)
         self.set_velocidade(pygame.Vector2(-100, 0))
     
     def checkLeft(self):

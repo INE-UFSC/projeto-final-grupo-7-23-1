@@ -22,7 +22,7 @@ class Controlador:
         pygame.font.init()
         self.__estado = Estado(GRAVIDADE, VELOCIDADE, 1, False)
         self.__estado_inical = Estado(GRAVIDADE, VELOCIDADE, 1, False)
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
+        self.__jogador = Jogador(pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
@@ -87,7 +87,7 @@ class Controlador:
         self.__tempo_pontuação = pygame.time.get_ticks() 
         self.__estado = copy.deepcopy(self.__estado_inical)
         self.__estado._mapa = 1
-        self.__jogador = Jogador(0, pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
+        self.__jogador = Jogador(pygame.Vector2(50, 476), pygame.Vector2(50, 100), "white",[pygame.image.load(CAMINHO_ASSETS+"crocodilo.jpg")])
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0

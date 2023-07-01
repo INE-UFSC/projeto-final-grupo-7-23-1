@@ -4,8 +4,16 @@ from abc import ABC
 from constantes import *
 
 class Entidade(ABC):
-    def __init__(self, id: int, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str, imagens):
-        self.__id = id
+    __current_id = 0
+
+    @staticmethod
+    def next_id():
+        current = Entidade.__current_id
+        Entidade.__current_id += 1
+        return current
+
+    def __init__(self, posicao: pygame.Vector2, tamanho: pygame.Vector2, cor: str, imagens):
+        self.__id = Entidade.next_id()
         self.__velocidade = pygame.Vector2(0, 0)
         self.__rect = pygame.Rect(posicao.x, posicao.y, tamanho.x, tamanho.y)
         self.__cor = cor

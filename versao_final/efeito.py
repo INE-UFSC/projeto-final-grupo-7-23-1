@@ -4,8 +4,8 @@ from entidade import *
 from estado import Estado
 
 class Efeito(Entidade):
-    def __init__(self, id, posicao, tamanho,cor,imagens):
-        super().__init__(id, posicao, tamanho,cor,imagens)
+    def __init__(self, posicao, tamanho,cor,imagens):
+        super().__init__(posicao, tamanho,cor,imagens)
         self.set_velocidade(pygame.Vector2(-300, 0))
 
     @abstractmethod

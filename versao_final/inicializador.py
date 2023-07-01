@@ -1,6 +1,5 @@
 from pygame import Vector2
 
-from jogador import Jogador
 from obstaculo import Obstaculo
 import pygame
 
@@ -31,14 +30,14 @@ class inicializador:
     # obstaculos terrestres
 
     def sel_imagens(self,mapa):
-        self.t_fino_baixo = Obstaculo(1, Vector2(1280, 516), Vector2(45, 60),self.__dictInimigo[mapa])
-        self.t_fino_alto = Obstaculo(2, Vector2(1280, 466), Vector2(45, 110),self.__dictInimigo[mapa])
-        self.t_largo_baixo = Obstaculo(3, Vector2(1280, 516), Vector2(90, 60),self.__dictInimigo[mapa])
-        self.t_largo_alto = Obstaculo(4, Vector2(1280, 476), Vector2(90, 100),self.__dictInimigo[mapa])
+        self.t_fino_baixo = Obstaculo(Vector2(1280, 516), Vector2(45, 60),self.__dictInimigo[mapa])
+        self.t_fino_alto = Obstaculo(Vector2(1280, 466), Vector2(45, 110),self.__dictInimigo[mapa])
+        self.t_largo_baixo = Obstaculo(Vector2(1280, 516), Vector2(90, 60),self.__dictInimigo[mapa])
+        self.t_largo_alto = Obstaculo(Vector2(1280, 476), Vector2(90, 100),self.__dictInimigo[mapa])
 
         #obstaculos aereos
-        self.a_voo_baixo = Obstaculo(5, Vector2(1280, 476), Vector2(35, 40),self.__dictInimigo[mapa])
-        self.a_voo_alto = Obstaculo(6, Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
+        self.a_voo_baixo = Obstaculo(Vector2(1280, 476), Vector2(35, 40),self.__dictInimigo[mapa])
+        self.a_voo_alto = Obstaculo(Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
 
         #caixas efeitos
         imagens_efeitos = [
@@ -47,15 +46,15 @@ class inicializador:
             pygame.image.load(CAMINHO_ASSETS+"box3.png"),
             pygame.image.load(CAMINHO_ASSETS+"box4.png")
         ]
-        self.efeito_1 = EfeitoGravidadeInvertida(7, Vector2(1280, 400),Vector2(40,40),"blue",imagens_efeitos)
-        self.efeito_2 = EfeitoGravidadeBaixa(7, Vector2(1280, 400),Vector2(40,40),"lightblue",imagens_efeitos)
-        self.efeito_3 = EfeitoDiminuirVelocidade(7, Vector2(1280, 400),Vector2(40,40),"purple",imagens_efeitos)
-        self.efeito_4 = EfeitoAumentarVelocidade(7, Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
-        self.efeito_5 = EfeitoInvencibilidade(7, Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
+        self.efeito_1 = EfeitoGravidadeInvertida(Vector2(1280, 400),Vector2(40,40),"blue",imagens_efeitos)
+        self.efeito_2 = EfeitoGravidadeBaixa(Vector2(1280, 400),Vector2(40,40),"lightblue",imagens_efeitos)
+        self.efeito_3 = EfeitoDiminuirVelocidade(Vector2(1280, 400),Vector2(40,40),"purple",imagens_efeitos)
+        self.efeito_4 = EfeitoAumentarVelocidade(Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
+        self.efeito_5 = EfeitoInvencibilidade(Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
 
         #backgrounds
-        self.background1= Background(1,Vector2(0,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',[self.__dictBackgrounds[mapa][0]])
-        self.background2= Background(1,Vector2(TELA_WIDTH,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',[self.__dictBackgrounds[mapa][1]])
+        self.background1= Background(Vector2(0,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',[self.__dictBackgrounds[mapa][0]])
+        self.background2= Background(Vector2(TELA_WIDTH,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',[self.__dictBackgrounds[mapa][1]])
 
 
     def add_controlador(self,controlador,mapa):
