@@ -11,6 +11,7 @@ from efeito_invencibilidade import EfeitoInvencibilidade
 
 from background import Background
 from constantes import *
+from obstaculo_arara import Arara
 
 class inicializador:
 
@@ -37,6 +38,7 @@ class inicializador:
 
         #obstaculos aereos
         self.a_voo_baixo = Obstaculo(Vector2(1280, 476), Vector2(35, 40),self.__dictInimigo[mapa])
+        self.arara = Arara()
         self.a_voo_alto = Obstaculo(Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
 
         #caixas efeitos
@@ -68,6 +70,7 @@ class inicializador:
         controlador.add_obstaculo(self.t_largo_alto)
         controlador.add_obstaculo(self.a_voo_baixo)
         controlador.add_obstaculo(self.a_voo_alto)
+        controlador.add_obstaculo(self.arara)
 
         controlador.add_efeito(self.efeito_1)
         controlador.add_efeito(self.efeito_2)
