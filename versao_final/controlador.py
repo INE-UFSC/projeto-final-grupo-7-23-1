@@ -57,6 +57,7 @@ class Controlador:
         dt = 0
         speed_mul = 1
         enable_switch = True
+        self.__tempo_pontuação = pygame.time.get_ticks()
         for imagem in self.__jogador.get_imagens():
             imagem.convert_alpha()
 
@@ -66,7 +67,7 @@ class Controlador:
             if speed_mul < MAX_SPEED:
                 speed_mul += ACELERACAO
             testepont=int(self.__estado._pontuacao)
-            if testepont % 100 == 0 and enable_switch:
+            if testepont % 100 == 0 and testepont != 0 and enable_switch:
                 enable_switch = False
                 mapa = self.__estado._mapa + 1 if self.__estado._mapa < 3 else 1
                 self.__estado.set_mapa(mapa)
@@ -84,7 +85,6 @@ class Controlador:
         self.menu_run()
 
     def reset(self):
-        self.__tempo_pontuação = pygame.time.get_ticks() 
         self.__estado = copy.deepcopy(self.__estado_inical)
         self.__estado._mapa = 1
         self.__jogador = Jogador()
