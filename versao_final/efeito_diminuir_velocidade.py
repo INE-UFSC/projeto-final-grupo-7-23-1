@@ -3,8 +3,8 @@ from estado import Estado
 
 
 class EfeitoDiminuirVelocidade(Efeito):
-    def __init__(self, posicao, tamanho,cor,imagem):
-        super().__init__(posicao, tamanho,cor,imagem)
+    def __init__(self):
+        super().__init__("purple")
         self.set_nome("0.75X VELOCIDADE")
 
     def efeito(self, estado: Estado) -> Estado:

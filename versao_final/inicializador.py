@@ -42,17 +42,13 @@ class inicializador:
         self.a_voo_alto = Obstaculo(Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
 
         #caixas efeitos
-        imagens_efeitos = [
-            pygame.image.load(CAMINHO_ASSETS+"box1.png"),
-            pygame.image.load(CAMINHO_ASSETS+"box2.png"),
-            pygame.image.load(CAMINHO_ASSETS+"box3.png"),
-            pygame.image.load(CAMINHO_ASSETS+"box4.png")
+        self.efeitos = [
+            EfeitoGravidadeInvertida(),
+            EfeitoGravidadeBaixa(),
+            EfeitoDiminuirVelocidade(),
+            EfeitoAumentarVelocidade(),
+            EfeitoInvencibilidade()
         ]
-        self.efeito_1 = EfeitoGravidadeInvertida(Vector2(1280, 400),Vector2(40,40),"blue",imagens_efeitos)
-        self.efeito_2 = EfeitoGravidadeBaixa(Vector2(1280, 400),Vector2(40,40),"lightblue",imagens_efeitos)
-        self.efeito_3 = EfeitoDiminuirVelocidade(Vector2(1280, 400),Vector2(40,40),"purple",imagens_efeitos)
-        self.efeito_4 = EfeitoAumentarVelocidade(Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
-        self.efeito_5 = EfeitoInvencibilidade(Vector2(1280, 400),Vector2(40,40),"pink",imagens_efeitos)
 
         #backgrounds
         self.background1= Background(Vector2(0,TELA_HEIGHT-CHAO),Vector2(TELA_WIDTH,TELA_HEIGHT),'black',[self.__dictBackgrounds[mapa][0]])
@@ -72,8 +68,5 @@ class inicializador:
         controlador.add_obstaculo(self.a_voo_alto)
         controlador.add_obstaculo(self.arara)
 
-        controlador.add_efeito(self.efeito_1)
-        controlador.add_efeito(self.efeito_2)
-        controlador.add_efeito(self.efeito_3)
-        controlador.add_efeito(self.efeito_4)
-        controlador.add_efeito(self.efeito_5)
+        for efeito in self.efeitos:
+            controlador.add_efeito(efeito)
