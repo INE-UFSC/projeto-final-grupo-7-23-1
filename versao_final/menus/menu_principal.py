@@ -29,8 +29,10 @@ class MenuPrincipal(Menu):
             self.get_controlador().check_events()
             self.get_controlador().update_mouse()
             self.get_controlador().get_display().fill("black")
-            self.get_controlador().draw_text("FUGA PELO", 100, TELA_WIDTH / 2, 100)
-            self.get_controlador().draw_text("BRASIL", 100, TELA_WIDTH / 2, 220)
+            self.get_controlador().draw_image(self.get_image_bg(), TELA_WIDTH / 2, TELA_HEIGHT / 2)
+            self.get_controlador().draw_text("FUGA PELO", 100, TELA_WIDTH / 2, 100, "blue")
+            self.get_controlador().draw_text("B A I ", 100, TELA_WIDTH / 2, 220, "green")
+            self.get_controlador().draw_text(" R S L", 100, TELA_WIDTH / 2, 220, "yellow")
             rect_textinput1 = self.get_controlador().draw_text("NOME:", 40, TELA_WIDTH / 2 - 250, self.__textinputy)
             rect_textinput2 = self.get_controlador().draw_textinput(self.__textinput, self.__textinputx, self.__textinputy)
             self.__textinput_rect = Rect(rect_textinput1.left, rect_textinput1.top,

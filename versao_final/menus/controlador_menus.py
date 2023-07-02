@@ -19,6 +19,7 @@ class ControladorMenus:
         self.__display = pygame.Surface((TELA_WIDTH, TELA_HEIGHT))
         self.__screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         self.__font = CAMINHO_ASSETS + "font.ttf"
+        self.__icon = pygame.image.load(CAMINHO_ASSETS+"brazilflagicon.png")
         self.__menu_principal = MenuPrincipal(self)
         self.__menu_personagem = MenuPersonagem(self)
         self.__menu_ranking = MenuRanking(self)
@@ -28,6 +29,8 @@ class ControladorMenus:
     def menu_loop(self):
         self.__running = True
         pygame.key.set_repeat(250, 40)
+        pygame.display.set_caption("Fuga Pelo Brasil")
+        pygame.display.set_icon(self.__icon)
         self.__ranking = {"Jorge     ": 100, "Zeca      ": 523, "Zezinho   ": 69,
                           "AAAAAAAAAA": 100000, "BBBBBBBBBB": 50000}
         while self.__running:
@@ -67,7 +70,7 @@ class ControladorMenus:
         self.BACK_KEY, self.LEFT_KEY, self.RIGHT_KEY = False, False, False
         self.MOUSE, self.MOUSE_CLICK = False, False
     
-    def draw_text(self, text, size, x, y, color= "white"):
+    def draw_text(self, text, size, x, y, color= (255, 255, 70)):
         font = pygame.font.Font(self.__font, size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()

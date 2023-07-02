@@ -8,6 +8,9 @@ class Menu(ABC):
         self.__run_display = True
         self.__cursor_rect = pygame.Rect(0, 0, 30, 30)
         self.__font = CAMINHO_ASSETS + "font.ttf"
+        self.__image_bg = pygame.transform.scale(pygame.image.load(CAMINHO_ASSETS + "rjpixelart.png"), (TELA_WIDTH, TELA_HEIGHT))
+        self.__image_bg.convert_alpha()
+        self.__image_bg.set_alpha(220)
 
     def draw_cursor(self):
         self.__controlador.draw_text('>>', 30, self.__cursor_rect.x, self.__cursor_rect.y, "green")
@@ -33,6 +36,8 @@ class Menu(ABC):
         return self.__cursor_rect
     def get_font(self):
         return self.__font
+    def get_image_bg(self):
+        return self.__image_bg
     
     def set_run_display(self, boolean: bool):
         self.__run_display = boolean
