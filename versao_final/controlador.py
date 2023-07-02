@@ -29,6 +29,7 @@ class Controlador:
         self.__tempo_pontuação = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
+        self.__efeito_desenhar = None
         self.__background = []
         self.__controlador_menus = ControladorMenus()
         inicializador(self, self.__estado._mapa)
@@ -51,7 +52,7 @@ class Controlador:
     def run(self):
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
-        font = pygame.font.Font(None, 30)
+        font = pygame.font.Font(CAMINHO_ASSETS + "font.ttf", 20)
         #mapa=1
         running = True
         dt = 0
@@ -93,6 +94,7 @@ class Controlador:
         self.__tempo_efeito = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
+        self.__efeito_desenhar = None
         self.__background = []
         inicializador(self, self.__estado._mapa)
 
@@ -149,6 +151,7 @@ class Controlador:
 
         if pygame.time.get_ticks() - self.__tempo_efeito >= 5000:
             self.__estado = copy.deepcopy(self.__estado_inical)
+            self.__efeito_desenhar = None
 
         for obstaculo in self.__obstaculos_ativos:
             obstaculo.draw(screen)
@@ -184,15 +187,26 @@ class Controlador:
                 efeito.set_posicao_x(random_x)
                 efeito.set_posicao_y(random_y)
                 self.__tempo_efeito = pygame.time.get_ticks()
+                self.__estado = copy.deepcopy(self.__estado_inical)
                 self.__estado = efeito.efeito(self.__estado)
+                self.__efeito_desenhar = efeito
                 self.__efeitos_ativos.pop()
                 screen.fill("blue")
 
         pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
+        if self.__efeito_desenhar is not None:
+            nome_efeito = self.__efeito_desenhar.get_nome()
+            tempo_restante = (5000 - (pygame.time.get_ticks() - self.__tempo_efeito)) / 1000
+            text = "{}    {:.2f}s" .format(nome_efeito, tempo_restante)
+            text_surface = font.render(text, True, "yellow")
+            text_rect = text_surface.get_rect()
+            text_rect.center = (520, 40)
+            screen.blit(text_surface, text_rect)
+
         self.__estado.gerar_pontuacao(self.__tempo_pontuação)
-        score_text = font.render(f"Pontuação: {int(self.__estado._pontuacao)}", True, "yellow")
-        screen.blit(score_text, (TELA_WIDTH-TELA_WIDTH/7, 10))
+        score_text = font.render(f"PONTUAÇÃO {int(self.__estado._pontuacao)}", True, "yellow")
+        screen.blit(score_text, (TELA_WIDTH-380, 30))
 
         pygame.display.flip()
 
