@@ -1,6 +1,5 @@
 from pygame import Vector2
 
-from obstaculo import Obstaculo
 import pygame
 
 from efeito_gravidade_invertida import EfeitoGravidadeInvertida
@@ -12,6 +11,7 @@ from efeito_invencibilidade import EfeitoInvencibilidade
 from background import Background
 from constantes import *
 from obstaculo_arara import Arara
+from obstaculo_jacare import Jacare
 
 class inicializador:
 
@@ -31,15 +31,10 @@ class inicializador:
     # obstaculos terrestres
 
     def sel_imagens(self,mapa):
-        self.t_fino_baixo = Obstaculo(Vector2(1280, 516), Vector2(45, 60),self.__dictInimigo[mapa])
-        self.t_fino_alto = Obstaculo(Vector2(1280, 466), Vector2(45, 110),self.__dictInimigo[mapa])
-        self.t_largo_baixo = Obstaculo(Vector2(1280, 516), Vector2(90, 60),self.__dictInimigo[mapa])
-        self.t_largo_alto = Obstaculo(Vector2(1280, 476), Vector2(90, 100),self.__dictInimigo[mapa])
+        self.jacare = Jacare()
 
         #obstaculos aereos
-        self.a_voo_baixo = Obstaculo(Vector2(1280, 476), Vector2(35, 40),self.__dictInimigo[mapa])
         self.arara = Arara()
-        self.a_voo_alto = Obstaculo(Vector2(1280, 426), Vector2(35, 40),self.__dictInimigo[mapa])
 
         #caixas efeitos
         self.efeitos = [
@@ -60,13 +55,8 @@ class inicializador:
         controlador.add_background(self.background1)
         controlador.add_background(self.background2)
 
-        controlador.add_obstaculo(self.t_fino_baixo)
-        controlador.add_obstaculo(self.t_fino_alto)
-        controlador.add_obstaculo(self.t_largo_baixo)
-        controlador.add_obstaculo(self.t_largo_alto)
-        controlador.add_obstaculo(self.a_voo_baixo)
-        controlador.add_obstaculo(self.a_voo_alto)
         controlador.add_obstaculo(self.arara)
+        controlador.add_obstaculo(self.jacare)
 
         for efeito in self.efeitos:
             controlador.add_efeito(efeito)
