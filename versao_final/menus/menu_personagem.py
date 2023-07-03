@@ -17,7 +17,10 @@ class MenuPersonagem(Menu):
         self.__personagem1 = [[image.load(CAMINHO_ASSETS + "saci1.png"), image.load(CAMINHO_ASSETS + "saci2.png"),
                               image.load(CAMINHO_ASSETS + "saci3.png"), image.load(CAMINHO_ASSETS + "saci4.png")],
                               [image.load(CAMINHO_ASSETS + "saciagachado.png")]]
-        self.__personagem2 = [[image.load(CAMINHO_ASSETS + "curupira1.png")], [image.load(CAMINHO_ASSETS + "curupira2.png")]]
+        self.__personagem2 = [[image.load(CAMINHO_ASSETS + "curupira1.png"), image.load(CAMINHO_ASSETS + "curupira2.png"),
+                              image.load(CAMINHO_ASSETS + "curupira3.png"), image.load(CAMINHO_ASSETS + "curupira4.png")],
+                              [image.load(CAMINHO_ASSETS + "curupira_agachado1.png"), image.load(CAMINHO_ASSETS + "curupira_agachado2.png"),
+                               image.load(CAMINHO_ASSETS + "curupira_agachado1.png"), image.load(CAMINHO_ASSETS + "curupira_agachado2.png")]]
         self.__imagem_p1 = transform.scale(self.__personagem1[0][0], (100, 200))
         self.__imagem_p2 = transform.scale(self.__personagem2[0][0], (100, 200))
         self.__cor_padrao = "white"
