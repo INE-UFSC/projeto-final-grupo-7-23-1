@@ -40,7 +40,7 @@ class Controlador:
     def add_efeito(self, efeito):
         self.__efeitos.append(efeito)
     
-    def add_background(self,background):
+    def add_background(self, background):
         self.__background.append(background)
 
     def menu_run(self):
@@ -192,8 +192,6 @@ class Controlador:
                 self.__efeito_desenhar = efeito
                 self.__efeitos_ativos.pop()
                 screen.fill("blue")
-
-        pygame.draw.rect(screen,"white",[0,TELA_HEIGHT-CHAO,TELA_WIDTH,CHAO])
 
         if self.__efeito_desenhar is not None:
             nome_efeito = self.__efeito_desenhar.get_nome()

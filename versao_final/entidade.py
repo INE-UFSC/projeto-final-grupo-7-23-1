@@ -17,7 +17,7 @@ class Entidade(ABC):
         self.__velocidade = pygame.Vector2(0, 0)
         self.__rect = pygame.Rect(posicao.x, posicao.y, tamanho.x, tamanho.y)
         self.__cor = cor
-        self.__imagens = list(map(lambda x: pygame.transform.scale(x, (tamanho.x, tamanho.y)), imagens))
+        self.__imagens = list(map(lambda x: pygame.transform.scale(x, (tamanho.x+10, tamanho.y)), imagens))
         self.__current_frame = 0.0
 
     def get_cor(self):
