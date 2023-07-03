@@ -1,6 +1,7 @@
 import pygame
 import sys
 from constantes import *
+from estado import Estado
 from menus.menu import Menu
 from menus.menu_principal import MenuPrincipal
 from menus.menu_personagem import MenuPersonagem
@@ -26,13 +27,12 @@ class ControladorMenus:
         self.__menu_gameover = MenuGameOver(self)
         self.__menu_atual = self.__menu_principal
 
-    def menu_loop(self):
+    def menu_loop(self, estado: Estado):
         self.__running = True
         pygame.key.set_repeat(250, 40)
         pygame.display.set_caption("Fuga Pelo Brasil")
         pygame.display.set_icon(self.__icon)
-        self.__ranking = {"Jorge     ": 100, "Zeca      ": 523, "Zezinho   ": 69,
-                          "AAAAAAAAAA": 100000, "BBBBBBBBBB": 50000}
+        self.__ranking = estado.load_highscores()
         while self.__running:
             self.check_events()
             self.update_mouse()

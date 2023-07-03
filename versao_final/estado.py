@@ -19,7 +19,6 @@ class Estado:
         self._mapa = mapa
 
     def save_highscore(self, nome) -> bool:
-        print(f'Saving current score: {self._pontuacao}')
         nome = nome.strip()
         try:
             #if self._pontuacao <= self.load_highscore(): return False
