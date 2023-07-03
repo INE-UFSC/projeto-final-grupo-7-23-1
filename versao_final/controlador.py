@@ -211,9 +211,7 @@ class Controlador:
             text_rect.center = (520, 40)
             screen.blit(text_surface, text_rect)
 
-        print(f'1: {self.__estado._pontuacao}')
         self.__estado.gerar_pontuacao(self.__tempo_pontuacao)
-        print(f'2: {self.__estado._pontuacao}')
         score_text = font.render(f"PONTUAÇÃO {int(self.__estado._pontuacao)}", True, "yellow")
         screen.blit(score_text, (TELA_WIDTH-380, 30))
 
