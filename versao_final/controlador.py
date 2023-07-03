@@ -26,7 +26,7 @@ class Controlador:
         self.__obstaculos = []
         self.__obstaculos_ativos = []
         self.__tempo_efeito = 0
-        self.__tempo_pontuação = 0
+        self.__tempo_pontuacao = 0
         self.__efeitos = []
         self.__efeitos_ativos = []
         self.__efeito_desenhar = None
@@ -60,7 +60,7 @@ class Controlador:
         dt = 0
         speed_mul = 1
         enable_switch = True
-        self.__tempo_pontuação = pygame.time.get_ticks()
+        self.__tempo_pontuacao = pygame.time.get_ticks()
         for imagem in self.__jogador.get_imagens():
             imagem.convert_alpha()
 
@@ -152,7 +152,9 @@ class Controlador:
             self.__obstaculos_ativos.append(random.choice(self.__obstaculos))
 
         if pygame.time.get_ticks() - self.__tempo_efeito >= 5000:
+            p = self.__estado._pontuacao
             self.__estado = copy.deepcopy(self.__estado_inical)
+            self.__estado._pontuacao = p
             self.__efeito_desenhar = None
 
         for obstaculo in self.__obstaculos_ativos:
@@ -189,7 +191,9 @@ class Controlador:
                 efeito.set_posicao_x(random_x)
                 efeito.set_posicao_y(random_y)
                 self.__tempo_efeito = pygame.time.get_ticks()
+                p = self.__estado._pontuacao
                 self.__estado = copy.deepcopy(self.__estado_inical)
+                self.__estado._pontuacao = p
                 self.__estado = efeito.efeito(self.__estado)
                 self.__efeito_desenhar = efeito
                 self.__efeitos_ativos.pop()
@@ -204,7 +208,9 @@ class Controlador:
             text_rect.center = (520, 40)
             screen.blit(text_surface, text_rect)
 
-        self.__estado.gerar_pontuacao(self.__tempo_pontuação)
+        print(f'1: {self.__estado._pontuacao}')
+        self.__estado.gerar_pontuacao(self.__tempo_pontuacao)
+        print(f'2: {self.__estado._pontuacao}')
         score_text = font.render(f"PONTUAÇÃO {int(self.__estado._pontuacao)}", True, "yellow")
         screen.blit(score_text, (TELA_WIDTH-380, 30))
 
