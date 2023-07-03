@@ -12,29 +12,36 @@ from background import Background
 from constantes import *
 from obstaculo_arara import Arara
 from obstaculo_jacare import Jacare
+from obstaculo_carrovermelho import CarroVermelho
+from obstaculo_carroazul import CarroAzul
+from obstaculo_caranguejo import Caranguejo
+from obstaculo_gaivota import Gaivota
+from obstaculo_capivara import Capivara
 
 class inicializador:
 
 #fazes
     def __init__(self,controlador,mapa):
+        self.jacare = Jacare()
+        self.arara = Arara()
+        self.carro_vermelho = CarroVermelho()
+        self.carro_azul = CarroAzul()
+        self.caranguejo = Caranguejo()
+        self.gaivota = Gaivota()
+        self.capivara = Capivara()
         self.__dictBackgrounds = {
             1 : [pygame.image.load(CAMINHO_ASSETS+"floresta.png")],
             2 : [pygame.image.load(CAMINHO_ASSETS+"praia.png")],
             3 : [pygame.image.load(CAMINHO_ASSETS+"rj.png")]
             }
         self.__dictInimigo ={
-            1: [pygame.image.load(CAMINHO_ASSETS+"jacare1.png"), pygame.image.load(CAMINHO_ASSETS+"jacare2.png")],
-            2: [pygame.image.load(CAMINHO_ASSETS+"testetransbg.jpg")],
-            3: [pygame.image.load(CAMINHO_ASSETS+"foresttest.png")]
+            1: [self.jacare, self.arara, self.capivara],
+            2: [self.caranguejo, self.gaivota],
+            3: [self.carro_vermelho, self.carro_azul]
         }
         self.add_controlador(controlador,mapa)
 
     def sel_imagens(self,mapa):
-        # obstaculos terrestres
-        self.jacare = Jacare()
-
-        #obstaculos aereos
-        self.arara = Arara()
 
         #caixas efeitos
         self.efeitos = [
@@ -55,8 +62,8 @@ class inicializador:
         controlador.add_background(self.background1)
         controlador.add_background(self.background2)
 
-        controlador.add_obstaculo(self.arara)
-        controlador.add_obstaculo(self.jacare)
+        for obstaculo in self.__dictInimigo[mapa]:
+            controlador.add_obstaculo(obstaculo)
 
         for efeito in self.efeitos:
             controlador.add_efeito(efeito)
