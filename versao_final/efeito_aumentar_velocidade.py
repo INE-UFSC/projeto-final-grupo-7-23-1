@@ -8,5 +8,5 @@ class EfeitoAumentarVelocidade(Efeito):
         self.set_nome("1.5X VELOCIDADE")
 
     def efeito(self, estado: Estado) -> Estado:
-        estado._velocidade *= 2
+        estado._velocidade *= 1.5
         return estado

@@ -180,7 +180,7 @@ class Controlador:
         for efeito in self.__efeitos_ativos:
             efeito.draw(screen)
             efeito.update(0, dt, game_speed)
-            random_x = random.randint(TELA_WIDTH*3, TELA_WIDTH*8)
+            random_x = random.randint(TELA_WIDTH*2, TELA_WIDTH*6)
             random_y = int(random.choice([TELA_HEIGHT-CHAO-efeito.get_tamanho().y,
                                       TELA_HEIGHT-CHAO-efeito.get_tamanho().y*1.5,
                                       TELA_HEIGHT-CHAO-efeito.get_tamanho().y*2,

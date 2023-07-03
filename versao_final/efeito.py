@@ -14,7 +14,7 @@ class Efeito(Entidade):
     ]
 
     def __init__(self, cor):
-        super().__init__(Vector2(1280, 400),Vector2(40,40), cor, Efeito.IMAGENS)
+        super().__init__(Vector2(TELA_WIDTH * 2, 400),Vector2(40,40), cor, Efeito.IMAGENS)
         self.__nome = ""
         self.set_velocidade(pygame.Vector2(-300, 0))
 
