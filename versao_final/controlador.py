@@ -82,7 +82,7 @@ class Controlador:
             elif testepont % 105 == 0 and not enable_switch:
                 enable_switch = True
 
-        self.__estado.save_highscore()
+        self.__estado.save_highscore(self.__nome)
         self.reset()
         self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
         self.menu_run()

@@ -1,4 +1,5 @@
 import os
+import json
 
 import pygame
 
@@ -17,17 +18,25 @@ class Estado:
     def set_mapa(self,mapa):
         self._mapa = mapa
 
-    def save_highscore(self) -> bool:
-        if self._pontuacao <= self.load_highscore(): return False
+    def save_highscore(self, nome) -> bool:
+        print(f'Saving current score: {self._pontuacao}')
+        nome = nome.strip()
+        try:
+            #if self._pontuacao <= self.load_highscore(): return False
+            scores = self.load_highscores()
+            if nome in scores and self._pontuacao <= scores[nome]: return False
+            scores[nome] = self._pontuacao
 
-        os.makedirs(os.path.dirname(CAMINHO_SCORES), exist_ok=True)
-        with open(CAMINHO_SCORES,"w") as f:
-            f.write(f'{self._pontuacao}')
-            return True
+            os.makedirs(os.path.dirname(CAMINHO_SCORES), exist_ok=True)
+            with open(CAMINHO_SCORES,"w") as f:
+                json.dump(json.dumps(scores), f)
+                return True
+        except Exception:
+            return False
 
-    def load_highscore(self) -> float:
+    def load_highscores(self) -> dict:
         try:
             with open(CAMINHO_SCORES,"r") as f:
-                return float(f.readline())
-        except (FileNotFoundError, ValueError) as _:
-            return 0.0
+                return json.loads(json.load(f))
+        except Exception:
+            return {}
