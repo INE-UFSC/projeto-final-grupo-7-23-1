@@ -10,7 +10,7 @@ class MenuRanking(Menu):
         self.__offset_voltar = -150
         self.get_cursor_rect().midtop = (self.__voltarx + self.__offset_voltar, self.__voltary)
     
-    def display_menu(self):
+    def display_menu(self, estado):
         self.set_run_display(True)
         while self.get_run_display():
             self.get_controlador().check_events()

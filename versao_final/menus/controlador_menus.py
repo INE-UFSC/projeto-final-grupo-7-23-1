@@ -36,7 +36,7 @@ class ControladorMenus:
         while self.__running:
             self.check_events()
             self.update_mouse()
-            if self.__menu_atual.display_menu():
+            if self.__menu_atual.display_menu(estado):
                 pygame.key.set_repeat(0, 40)
                 self.__running = False
             self.reset_keys()

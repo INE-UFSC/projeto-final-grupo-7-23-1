@@ -21,7 +21,7 @@ class Menu(ABC):
         self.__controlador.reset_keys()
 
     @abstractmethod
-    def display_menu(self):
+    def display_menu(self, estado):
         pass
 
     @abstractmethod

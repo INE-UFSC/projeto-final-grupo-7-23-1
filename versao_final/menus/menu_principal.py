@@ -23,7 +23,7 @@ class MenuPrincipal(Menu):
                                                True, "white", cursor_color="white")
         self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
 
-    def display_menu(self):
+    def display_menu(self, estado):
         self.set_run_display(True)
         while self.get_run_display():
             self.get_controlador().check_events()

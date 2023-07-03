@@ -1,4 +1,5 @@
 from pygame import Rect
+from estado import Estado
 from menus.menu import Menu
 from constantes import *
 
@@ -16,7 +17,7 @@ class MenuGameOver(Menu):
         self.get_image_bg().set_alpha(40)
         self.get_cursor_rect().midtop = (self.__jogarx + self.__offset_jogar, self.__jogary)
     
-    def display_menu(self):
+    def display_menu(self, estado: Estado):
         self.set_run_display(True)
         while self.get_run_display():
             self.get_controlador().check_events()
@@ -24,8 +25,8 @@ class MenuGameOver(Menu):
             self.get_controlador().get_display().fill("black")
             self.get_controlador().draw_image(self.get_image_bg(), TELA_WIDTH / 2, TELA_HEIGHT / 2)
             self.get_controlador().draw_text("FIM DO JOGO", 60, TELA_WIDTH / 2, 100, "red")
-            self.get_controlador().draw_text(f"Sua pontuação foi de {100000}.", 30, TELA_WIDTH / 2, 200, "white")
-            self.get_controlador().draw_text(f"Você ficou entre os cinco melhores locais!", 30, TELA_WIDTH / 2, 250, "white")
+            self.get_controlador().draw_text(f"Sua pontuação foi de {estado._pontuacao}.", 30, TELA_WIDTH / 2, 200, "white")
+            #self.get_controlador().draw_text(f"Você ficou entre os cinco melhores locais!", 30, TELA_WIDTH / 2, 250, "white")
             self.get_controlador().draw_ranking(30, self.__rankingleft, self.__rankingtop)
             rect_jogar1 = self.get_controlador().draw_text("JOGAR", 40, self.__jogarx, self.__jogary - 25)
             rect_jogar2 = self.get_controlador().draw_text("NOVAMENTE", 40, self.__jogarx, self.__jogary + 25)

@@ -30,7 +30,7 @@ class MenuPersonagem(Menu):
         self.__cor_borda_p3 = self.__cor_padrao
         self.get_cursor_rect().midtop = (self.__p1x + self.__offset_p, self.__p1y)
     
-    def display_menu(self):
+    def display_menu(self, estado):
         self.set_run_display(True)
         while self.get_run_display():
             self.get_controlador().check_events()

@@ -52,6 +52,7 @@ class Controlador:
         self.run()
 
     def run(self):
+        self.__estado._pontuacao = 0
         screen = pygame.display.set_mode((TELA_WIDTH, TELA_HEIGHT))
         clock = pygame.time.Clock()
         font = pygame.font.Font(CAMINHO_ASSETS + "font.ttf", 20)
@@ -83,7 +84,9 @@ class Controlador:
                 enable_switch = True
 
         self.__estado.save_highscore(self.__nome)
+        p = self.__estado._pontuacao
         self.reset()
+        self.__estado._pontuacao = p
         self.__controlador_menus.set_menu_atual(self.__controlador_menus.get_menu_gameover())
         self.menu_run()
 
