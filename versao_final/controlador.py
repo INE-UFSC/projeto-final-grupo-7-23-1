@@ -46,7 +46,9 @@ class Controlador:
     def menu_run(self):
         self.__controlador_menus.menu_loop()
         self.__nome = self.__controlador_menus.get_menu_principal().get_nome()
-        self.__jogador.set_imagens(self.__controlador_menus.get_menu_personagem().get_personagem())
+        self.__jogador.set_imagens_levantado(self.__controlador_menus.get_menu_personagem().get_personagem()[0])
+        self.__jogador.set_imagens_agachado(self.__controlador_menus.get_menu_personagem().get_personagem()[1])
+        self.__jogador.set_imagens(self.__controlador_menus.get_menu_personagem().get_personagem()[0])
         self.run()
 
     def run(self):

@@ -15,10 +15,12 @@ class MenuPersonagem(Menu):
         self.__offset_voltar = -150
         self.__rect_borda = Rect(0, 0, 110, 210)
         self.__rect_fundo = Rect(0, 0, 100, 200)
-        self.__personagem1 = [image.load(CAMINHO_ASSETS + "jacare1.png"), image.load(CAMINHO_ASSETS + "jacare2.png")]
+        self.__personagem1 = [[image.load(CAMINHO_ASSETS + "saci1.png"), image.load(CAMINHO_ASSETS + "saci2.png"),
+                              image.load(CAMINHO_ASSETS + "saci3.png"), image.load(CAMINHO_ASSETS + "saci4.png")],
+                              [image.load(CAMINHO_ASSETS + "saciagachado.png")]]
         self.__personagem2 = [image.load(CAMINHO_ASSETS + "box1.png"), image.load(CAMINHO_ASSETS + "box2.png")]
         self.__personagem3 = [image.load(CAMINHO_ASSETS + "powerup.png")]
-        self.__imagem_p1 = transform.scale(self.__personagem1[0], (100, 200))
+        self.__imagem_p1 = transform.scale(self.__personagem1[0][0], (100, 200))
         self.__imagem_p2 = transform.scale(self.__personagem2[0], (100, 200))
         self.__imagem_p3 = transform.scale(self.__personagem3[0], (100, 200))
         self.__cor_padrao = "white"
