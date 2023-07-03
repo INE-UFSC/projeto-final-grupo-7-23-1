@@ -36,6 +36,7 @@ class Estado:
     def load_highscores(self) -> dict:
         try:
             with open(CAMINHO_SCORES,"r") as f:
-                return json.loads(json.load(f))
+                scores = json.loads(json.load(f))
+                return dict(sorted(scores.items(), key=lambda x: x[1], reverse=True))
         except Exception:
             return {}
